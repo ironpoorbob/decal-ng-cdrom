@@ -1,0 +1,8 @@
+<button 
+  class="fist"
+  [ngClass]="data.name"
+  (click)="handleFistClick($event, index)"
+  (mouseenter)="handleMouseEnter($event, index)"
+  (mouseleave)="handleMouseLeave($event, index)"
+  [attr.data-index]="index"
+  ></button>

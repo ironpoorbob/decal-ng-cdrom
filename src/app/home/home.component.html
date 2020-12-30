@@ -1,0 +1,85 @@
+
+
+
+<div class="container">
+
+  <div class="home">
+
+    <div class="row">
+      <div class="col col-lg-12 logo">
+        <div class="logo-wrapper">
+          DECAL
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col offset-lg-1 col-lg-10">
+        <div class="row">
+
+          <div class="col col-lg-4 fists">
+            <app-botton-hs [data]="fistData[0]" [index]="0"></app-botton-hs>
+          </div>
+          <div class="col col-lg-4 fists center-fist">
+            <app-botton-hs [data]="fistData[1]" [index]="1"></app-botton-hs>
+          </div>
+          <div class="col col-lg-4 fists">
+            <app-botton-hs [data]="fistData[2]" [index]="2"></app-botton-hs>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col col-lg-4">
+            <div class="text-wrapper">
+              <div
+                class="text"
+                [class.hover-active]="dataObj['hpButton0'] === true"
+                [innerHTML]="fistData[0].headline"></div>
+            </div>
+          </div>
+          <div class="col col-lg-4">
+            <div class="text-wrapper center-text">
+              <div
+                class="text"
+                [class.hover-active]="dataObj['hpButton1'] === true"
+                [innerHTML]="fistData[1].headline"></div>
+            </div>
+          </div>
+          <div class="col col-lg-4">
+            <div class="text-wrapper">
+              <div
+                class="text" 
+                [class.hover-active]="dataObj['hpButton2'] === true"
+                [innerHTML]="fistData[2].headline"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row break">
+          <div class="col col-lg-12"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row extras">
+      <div class="col offset-lg-2 col-lg-8 credits"><button (click)="handleCreditsClick()">CREDITS</button></div>
+
+      <div class="col col-lg-2 outro">
+        <div class="row">
+          <div class="col col-lg-12 button">
+            <app-botton-hs [data]="fistData[0]" [index]="3"></app-botton-hs>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-lg-12 text">
+            QUIT
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>

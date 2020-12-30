@@ -1,0 +1,25 @@
+
+@import "bootstrap/scss/bootstrap";
+
+* {
+  // background-color: #000;
+}
+
+// html, body {
+  
+// }
+
+a {
+  color: #fff;
+}
+
+p {
+  // color: #ff0000;
+}
+
+.non-desktop {
+  @include media-breakpoint-up(lg) { display: none; }
+  .message {
+    text-align: center;
+  }
+}
