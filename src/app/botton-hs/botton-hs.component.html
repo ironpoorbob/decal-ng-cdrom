@@ -1,7 +1,9 @@
 <button 
   class="fist"
   [ngClass]="data.name"
-  (click)="handleFistClick($event, index)"
+  [ngStyle]="{'z-index': fistZindex }"
+  [class.expander]="expandedName === data.name && index !== 3"
+  (click)="handleFistClick($event, index, data.name)"
   (mouseenter)="handleMouseEnter($event, index)"
   (mouseleave)="handleMouseLeave($event, index)"
   [attr.data-index]="index"

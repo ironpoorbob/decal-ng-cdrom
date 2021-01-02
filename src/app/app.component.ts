@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { StateManagerService } from './state-manager.service';
 import { Subscription, ReplaySubject } from 'rxjs';
 
@@ -25,4 +25,15 @@ export class AppComponent implements OnInit {
     //   }
     // )
   }
+
+  // pause/stop music if browser resized below 992px wide
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    event.target.innerWidth;
+    // console.log('window width: ', event.target.innerWidth);
+    if (event.target.innerWidth < 992) {
+      this.stateManagerService.stopLoop();
+    }
+  }
+
 }

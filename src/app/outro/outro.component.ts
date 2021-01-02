@@ -1,15 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription, ReplaySubject } from 'rxjs';
+import { StateManagerService } from '../state-manager.service';
 
 @Component({
   selector: 'app-outro',
   templateUrl: './outro.component.html',
   styleUrls: ['./outro.component.scss']
 })
-export class OutroComponent implements OnInit {
+export class OutroComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  public dataObjSubscription: Subscription;
+  public dataObj: any; // data received
 
-  ngOnInit(): void {
+  constructor(
+    private stateManagerService: StateManagerService,
+    private router: Router
+  ) { }
+
+  public ngOnInit(): void {
+    this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
+      value => {
+        this.dataObj = value;
+      }
+    )
+  }
+
+  public handleMenuClick() {
+    this.router.navigateByUrl('/home');
+    // this.stateManagerService.stopLoop();
+  }
+
+  public ngOnDestroy(): void {
+    this.dataObjSubscription.unsubscribe();
   }
 
 }

@@ -17,9 +17,15 @@ p {
   // color: #ff0000;
 }
 
+// .content {
+//   @include media-breakpoint-down(lg) { display: none; }
+//   @include media-breakpoint-up(lg) { display: inline; }
+// }
+
 .non-desktop {
   @include media-breakpoint-up(lg) { display: none; }
   .message {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
   }
 }

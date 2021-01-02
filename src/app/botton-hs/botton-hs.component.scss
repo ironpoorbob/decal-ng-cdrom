@@ -33,5 +33,42 @@
       height: 100%;
       width: 100%;
     }
+
+    &.expander {
+      &.chris {
+        animation: expander1 400ms;
+        @keyframes expander1 {
+          100% {
+            width: 400%;
+            height: 400%;
+            top: -80%;
+            left: -45%;
+          }
+        }
+      }
+      &.stark {
+        animation: expander2 400ms;
+        @keyframes expander2 {
+          100% {
+            width: 400%;
+            height: 400%;
+            top: -150%;
+            left: -150%;
+          }
+        }
+      }
+      &.bob {
+        animation: expander3 400ms;
+        @keyframes expander3 {
+          100% {
+            width: 400%;
+            height: 400%;
+            top: -80%;
+            left: -260%;
+          }
+        }
+      }
+    }
+
   }
 }

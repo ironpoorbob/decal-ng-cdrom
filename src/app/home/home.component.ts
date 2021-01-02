@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { StateManagerService } from '../state-manager.service';
@@ -13,7 +13,7 @@ interface FistComponentData {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
@@ -76,6 +76,10 @@ export class HomeComponent implements OnInit {
 
     
     this.playAudio(false);
+  }
+
+  public ngOnDestroy(): void {
+    this.dataObjSubscription.unsubscribe();
   }
 
   // public stopAudio() {
