@@ -37,7 +37,6 @@ export class StateManagerService {
 
 
 
-
   // start and stop audio loops
   // current loop name var
 
@@ -53,7 +52,7 @@ export class StateManagerService {
     // let audio;
 
     this.dataObj['loop'] = loop;
-    console.log('start loop:::: ', this.dataObj);
+    // console.log('start loop:::: ', this.dataObj);
     switch(loop) {
       case 'home':
         this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
@@ -84,9 +83,10 @@ export class StateManagerService {
   }
 
   public stopLoop(): void {
-    console.log('stop audio ::: ', this.audio)
-    this.audio.pause();
-
+    // console.log('stop audio ::: ', this.audio)
+    if (this.audio) {
+      this.audio.pause();
+    }
   }
 
 }

@@ -6,8 +6,40 @@ html, body {
 
   padding-top: 1em;
 
+  font-family: carbon;
+
   img {
     width: 100%;
+  }
+
+  .decal {
+
+    app-home, app-credits, app-outro, app-intro, app-bio, app-ask, app-game {
+      @include media-breakpoint-down(lg) { display: none; }
+      @include media-breakpoint-up(lg) { display: inline; }
+    }
+
+
+    button {
+      &.back-button {
+        outline: none;
+        box-shadow: 0px 0px 0px 4px #ffffff;
+        background-color:#ffffff;
+        border-radius:50%;
+        border:7px solid #000000;
+        display:inline-block;
+        cursor:pointer;
+        color:#000000;
+        // font-family: carbon;
+        font-size:20px;
+        padding:4px 16px;
+        text-decoration:none;
+        &:hover {
+          color: #fff;
+          background-color: #000;
+        }
+      }
+    }
   }
 
 }

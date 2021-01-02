@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, ReplaySubject } from 'rxjs';
 import { StateManagerService } from '../state-manager.service';
@@ -8,7 +8,7 @@ import { StateManagerService } from '../state-manager.service';
   templateUrl: './credits.component.html',
   styleUrls: ['./credits.component.scss']
 })
-export class CreditsComponent implements OnInit {
+export class CreditsComponent implements OnInit, OnDestroy {
 
   public loopAudio: any;
 
@@ -28,6 +28,10 @@ export class CreditsComponent implements OnInit {
         // console.log('object state in button: ', value);
       }
     )
+  }
+
+  public ngOnDestroy(): void {
+    this.dataObjSubscription.unsubscribe();
   }
 
   public handleMenuClick() {
