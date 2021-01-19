@@ -4,8 +4,9 @@ import { Subscription, ReplaySubject } from 'rxjs';
 import { StateManagerService } from '../state-manager.service';
 
 interface FistComponentData {
-  name: string,
-  headline: string,
+  name: string;
+  headline: string;
+  url: string;
 }
 
 @Component({
@@ -25,15 +26,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   fistData: Array<FistComponentData> = [
     {
       name: 'chris',
-      headline: 'WHO WANTS<br> TO KNOW?'
+      headline: 'WHO WANTS<br> TO KNOW?',
+      url: ''
     },
     {
       name: 'stark',
-      headline: 'ASK THE BAND'
+      headline: 'ASK THE BAND',
+      url: ''
     },
     {
       name: 'bob',
-      headline: 'DECAL<br> BOARD GAME'
+      headline: 'DECAL<br> BOARD GAME',
+      url: ''
     },
   ];
 
@@ -56,6 +60,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     )
 
     this.stateManagerService.getDataObj();
+
+    this.fistData[0].url = this.dataObj.baseUrl + 'assets/images/fist-of-chris-c.png';
+    this.fistData[1].url = this.dataObj.baseUrl + 'assets/images/fist-of-chris-s.png';
+    this.fistData[2].url = this.dataObj.baseUrl + 'assets/images/fist-of-bob.png';
 
     // this.audioElement = document.createElement('audio');
     // this.audioElement.setAttribute('src', '/assets/audio/cocktails3.mono.22.aif');

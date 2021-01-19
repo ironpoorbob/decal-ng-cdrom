@@ -26,12 +26,29 @@ export class BottonHsComponent implements OnInit, OnDestroy {
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
+  // public bobImage = 'assets/images/fist-of-bob.png';
+  // public chrisImage = 'assets/images/fist-of-chris-c.png';
+  // public starkImage = 'assets/images/fist-of-chris-s.png';
+
+  // &.bob {
+  //   background-image: url(/assets/images/fist-of-bob.png);
+  // }
+  // &.chris {
+  //   background-image: url(#{$assetBasePath}images/fist-of-chris-c.png);
+  // }
+  // &.stark {
+  //   background-image: url(#{$assetBasePath}images/fist-of-chris-s.png);
+  // }
+
+
   constructor(
     private stateManagerService: StateManagerService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
+    console.log('whats in data: ', this.data);
+
     this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
       value => {
         this.dataObj = value;
@@ -61,43 +78,47 @@ export class BottonHsComponent implements OnInit, OnDestroy {
     // this.setZindex(index, 40);
     let audio;
     let audio2;
+    let audioVal1 = '';
+    let audioVal2 = '';
     let section = '';
     let newRoute = '';
     this.expandedName = name;
     console.log('clicked: ', evt.target, ' : ', name, ' : ', index);
     switch(index) {
       case 0:
-        audio = new Audio("assets/audio/hits/fist1-hit.mp3");
-        audio2 = new Audio('assets/audio/hits/bodyHit1.mp3');
+        audioVal1 = 'assets/audio/hits/fist1-hit.mp3';
+        audioVal2 = 'assets/audio/hits/bodyHit1.mp3';
         section = 'bio1';
         newRoute = '/bio';
-        // this.router.navigateByUrl('/bio');
         break;
       case 1:
-        audio = new Audio("assets/audio/hits/fist2-hit.mp3");
-        audio2 = new Audio('assets/audio/hits/bodyHit2.mp3');
+        audioVal1 = 'assets/audio/hits/fist2-hit.mp3';
+        audioVal2 = 'assets/audio/hits/bodyHit2.mp3';
         section = 'ask';
         newRoute = '/ask';
-        // this.router.navigateByUrl('/ask');
         break;
       case 2:
-        audio = new Audio("assets/audio/hits/fist3-hit.mp3");
-        audio2 = new Audio('assets/audio/hits/bodyHit3.mp3');
+        audioVal1 = 'assets/audio/hits/fist3-hit.mp3';
+        audioVal2 = 'assets/audio/hits/bodyHit3.mp3';
         section = 'game';
         newRoute = '/game';
-        // this.router.navigateByUrl('/game');
         break;
       case 3:
-        audio = new Audio("assets/audio/hits/fist1-hit.mp3");
-        audio2 = new Audio('assets/audio/hits/bodyHit1.mp3');
+        audioVal1 = 'assets/audio/hits/fist1-hit.mp3';
+        audioVal2 = 'assets/audio/hits/bodyHit1.mp3';
         this.router.navigateByUrl('/outro');
         break;
       default:
-        audio = new Audio("assets/audio/hits/fist1-hit.mp3");
-        audio2 = new Audio('assets/audio/hits/bodyHit1.mp3');
+        audioVal1 = 'assets/audio/hits/fist1-hit.mp3';
+        audioVal2 = 'assets/audio/hits/bodyHit1.mp3';
         section = 'home';
         this.router.navigateByUrl('/home');
     }
+
+    // this.dataObj
+    // console.log('audio path: ', this.dataObj.baseUrl + audioVal1);
+    audio = new Audio(this.dataObj.baseUrl + audioVal1);
+    audio2 = new Audio(this.dataObj.baseUrl + audioVal2);
 
     audio.play();
     audio2.play();
@@ -114,15 +135,9 @@ export class BottonHsComponent implements OnInit, OnDestroy {
           // res();
         }, 300);
       })
-
     }
 
     console.log('promise : ', Promise);
-
-    // let audio = new Audio("assets/audio/hits/fist1-hit.mp3");
-    // audio.play();
-    // let audio2 = new Audio('assets/audio/hits/bodyHit2.mp3');
-    // audio2.play();
   }
 
   public handleMouseEnter(evt, index) {

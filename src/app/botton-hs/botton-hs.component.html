@@ -1,7 +1,7 @@
 <button 
   class="fist"
   [ngClass]="data.name"
-  [ngStyle]="{'z-index': fistZindex }"
+  [ngStyle]="{'z-index': fistZindex, 'background-image': 'url(' + data.url + ')' }"
   [class.expander]="expandedName === data.name && index !== 3"
   (click)="handleFistClick($event, index, data.name)"
   (mouseenter)="handleMouseEnter($event, index)"

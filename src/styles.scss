@@ -1,5 +1,13 @@
 @import "bootstrap/scss/bootstrap";
 
+
+// Antialising
+html, html a {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -moz-osx-font-smoothing: grayscale;
+}
+
 html, body {
   background-color: #000;
   color: #fff;
@@ -10,6 +18,10 @@ html, body {
 
   img {
     width: 100%;
+  }
+
+  ul {
+    list-style-type: none;
   }
 
   .decal {

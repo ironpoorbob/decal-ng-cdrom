@@ -17,7 +17,8 @@ export class StateManagerService {
     hpButton0: false,
     hpButton1: false,
     hpButton2: false,
-    loop: ''
+    loop: '',
+    baseUrl: ''
   }
 
   constructor() { }
@@ -50,24 +51,30 @@ export class StateManagerService {
     // bio slide3  grind3.mono.mp3
 
     // let audio;
+    let waitTime = undefined;
 
     this.dataObj['loop'] = loop;
     // console.log('start loop:::: ', this.dataObj);
     switch(loop) {
       case 'home':
         this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
+        waitTime = 0;
         break;
       case 'credits':
         this.audio = new Audio("assets/audio/cocktails1.mono.22.mp3");
+        waitTime = 500;
         break;
       case 'ask':
         this.audio = new Audio("assets/audio/cocktails3.mono.22.mp3");
+        waitTime = 800;
         break;
       case 'game':
         this.audio = new Audio("assets/audio/figure1.mono.22.mp3");
+        waitTime = 800;
         break;
       case 'bio1':
         this.audio = new Audio("assets/audio/grind1.mono.mp3");
+        waitTime = 800;
         break;
       case 'bio2':
         this.audio = new Audio("assets/audio/grind 2.mono.22.mp3");
@@ -77,9 +84,21 @@ export class StateManagerService {
         break;
       default:
         this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
+        waitTime = 800;
         break;
     }
-    this.audio.play();
+
+    // if (newRoute !== '') {
+      new Promise((res) => {
+        setTimeout(() => {
+          // this.router.navigateByUrl(newRoute);
+          // res();
+          this.audio.play();
+        }, waitTime);
+      })
+    // }
+
+
   }
 
   public stopLoop(): void {

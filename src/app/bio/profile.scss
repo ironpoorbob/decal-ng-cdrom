@@ -1,0 +1,21 @@
+
+.profile {
+  color: #33ff33;
+  .back-button {
+    margin-top: 16px;
+  }
+  ul {
+    padding-left: 25px;
+    li {
+      margin-bottom: 2px;
+      &::before {
+        content: "-";
+        position: absolute;
+        margin-left: -20px;
+      }
+    }
+  }
+  .list-header {
+    margin-bottom: 4px;
+  }
+}

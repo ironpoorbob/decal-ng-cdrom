@@ -11,6 +11,18 @@ import { AskComponent } from './ask/ask.component';
 import { BioComponent } from './bio/bio.component';
 import { CreditsComponent } from './credits/credits.component';
 import { OutroComponent } from './outro/outro.component';
+import { Bio1Component } from './bio/bio1/bio1.component';
+import { Bio2Component } from './bio/bio2/bio2.component';
+import { Bio3Component } from './bio/bio3/bio3.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { Bio4Component } from './bio/bio4/bio4.component';
+import { Profile1Component } from './bio/profile1/profile1.component';
+import { Profile2Component } from './bio/profile2/profile2.component';
+import { Profile3Component } from './bio/profile3/profile3.component';
+import { Profile4Component } from './bio/profile4/profile4.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { Bio5Component } from './bio/bio5/bio5.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +34,22 @@ import { OutroComponent } from './outro/outro.component';
     AskComponent,
     BioComponent,
     CreditsComponent,
-    OutroComponent
+    OutroComponent,
+    Bio1Component,
+    Bio2Component,
+    Bio3Component,
+    Bio4Component,
+    Profile1Component,
+    Profile2Component,
+    Profile3Component,
+    Profile4Component,
+    VideoPlayerComponent,
+    Bio5Component
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

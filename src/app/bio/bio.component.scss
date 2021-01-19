@@ -1,5 +1,21 @@
 
 
 .bio {
-    
+  .text {
+    font-size: 24px;
+    line-height: 26px;
+    letter-spacing: -2px;
+    z-index: 20;
+  }
+  .image {
+    position: relative;
+    top: -160px;
+    img {
+      // border: 1px solid;
+    }
+  }
+  .controls {
+    position: relative;
+    top: -140px;
+  }
 }
