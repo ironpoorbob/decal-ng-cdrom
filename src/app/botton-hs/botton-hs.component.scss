@@ -1,4 +1,5 @@
 
+// @import "../variables";
 
 :host {
   .fist {
@@ -18,15 +19,15 @@
     // background-color: green;
     background-position: center;
     transition: 0.05s;
-    &.bob {
-      background-image: url(/assets/images/fist-of-bob.png);
-    }
-    &.chris {
-      background-image: url(/assets/images/fist-of-chris-c.png);
-    }
-    &.stark {
-      background-image: url(/assets/images/fist-of-chris-s.png);
-    }
+    // &.bob {
+    //   background-image: url(/assets/images/fist-of-bob.png);
+    // }
+    // &.chris {
+    //   background-image: url(#{$assetBasePath}images/fist-of-chris-c.png);
+    // }
+    // &.stark {
+    //   background-image: url(#{$assetBasePath}images/fist-of-chris-s.png);
+    // }
     &:hover {
       top: 3%;
       left: 3%;
