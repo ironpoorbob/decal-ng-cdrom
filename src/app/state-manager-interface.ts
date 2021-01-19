@@ -4,4 +4,5 @@ export interface StateManagerInterface {
   hpButton1: boolean;
   hpButton2: boolean;
   loop: string;
+  baseUrl: string;
 }
