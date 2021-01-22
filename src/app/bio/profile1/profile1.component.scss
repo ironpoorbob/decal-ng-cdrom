@@ -1,6 +1,30 @@
 
 @import '../profile.scss';
 
+$maxheight: 510px;
+
 .profile {
-  
+
+  .text-block {
+    overflow: hidden;
+    height: $maxheight;
+  }
+  .text {
+    // height: 0;
+    // max-height: 400px;
+    overflow: hidden;
+    animation: 
+      typing 1.5s;
+    // animation-delay: 1s;
+  }
+
+  @-webkit-keyframes typing {
+    from { max-height: 72px }
+    to { max-height: $maxheight }
+  }
+
+  @keyframes typing {
+    from { max-height: 72px }
+    to { max-height: $maxheight }
+  }
 }

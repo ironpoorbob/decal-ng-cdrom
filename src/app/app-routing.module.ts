@@ -11,6 +11,7 @@ import { Bio2Component } from '../app/bio/bio2/bio2.component';
 import { Bio3Component } from '../app/bio/bio3/bio3.component';
 import { Bio4Component } from '../app/bio/bio4/bio4.component';
 import { Bio5Component } from '../app/bio/bio5/bio5.component';
+import { Bio6Component } from '../app/bio/bio6/bio6.component';
 import { Profile1Component } from '../app/bio/profile1/profile1.component';
 import { Profile2Component } from '../app/bio/profile2/profile2.component';
 import { Profile3Component } from '../app/bio/profile3/profile3.component';
@@ -32,7 +33,7 @@ const routes: Routes = [
       { path: 'bio3', component: Bio3Component},
       { path: 'bio4', component: Bio4Component},
       { path: 'bio5', component: Bio5Component},
-      { path: 'bio6', component: BioComponent},
+      { path: 'bio6', component: Bio6Component},
       { path: 'profile1', component: Profile1Component},
       { path: 'profile2', component: Profile2Component},
       { path: 'profile3', component: Profile3Component},

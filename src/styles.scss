@@ -32,8 +32,8 @@ html, body {
     }
 
 
-    button {
-      &.back-button {
+    button, a {
+      &.back-button, &.prev-button, &.next-button {
         outline: none;
         box-shadow: 0px 0px 0px 4px #ffffff;
         background-color:#ffffff;
@@ -44,12 +44,18 @@ html, body {
         color:#000000;
         // font-family: carbon;
         font-size:20px;
+        &.small {
+          font-size: 14px;
+        }
         padding:4px 16px;
         text-decoration:none;
         &:hover {
           color: #fff;
           background-color: #000;
         }
+      }
+      &.prev-button {
+        float: right;
       }
     }
   }

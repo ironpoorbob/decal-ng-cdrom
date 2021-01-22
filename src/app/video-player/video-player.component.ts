@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'video-player',
@@ -6,15 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent implements OnInit {
+  @Input() item: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log('video url: ', this.item);
   }
   
   ngAfterViewInit() {
     this.setYouTubeSDK();
-    this.insertYouTubeIframe('yT_mQ81RlDQ');
+    this.insertYouTubeIframe(this.item);
     
   }
   
