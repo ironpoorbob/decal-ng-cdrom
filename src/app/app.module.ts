@@ -23,6 +23,7 @@ import { Profile3Component } from './bio/profile3/profile3.component';
 import { Profile4Component } from './bio/profile4/profile4.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { Bio5Component } from './bio/bio5/bio5.component';
+import { Bio6Component } from './bio/bio6/bio6.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { Bio5Component } from './bio/bio5/bio5.component';
     Profile3Component,
     Profile4Component,
     VideoPlayerComponent,
-    Bio5Component
+    Bio5Component,
+    Bio6Component
   ],
   imports: [
     BrowserModule,

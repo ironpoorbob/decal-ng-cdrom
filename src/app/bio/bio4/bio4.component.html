@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container bio4">
   <div class="row">
-    <div class="bio4 col col-lg-12">
+    <div class="col col-lg-12">
       <div class="col col-lg-auto video-wrapper">
-        <video-player class="video-player"></video-player>
+        <video-player class="video-player" [item]="videoUrl"></video-player>
       </div>
     </div>
   </div>
@@ -10,14 +10,14 @@
     <div class="col col-lg-3">
       <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
     </div>
-    <div class="col col-lg-5">
+    <div class="col col-lg-5 text">
       <p>But wait, there's more...</p>
     </div>
     <div class="col col-lg-2">
-      <a href="/bio/bio3">link left</a>
+      <a class="prev-button small" href="/bio/bio3">PREV</a>
     </div>
     <div class="col col-lg-2">
-      <a href="/bio/bio5">link right</a>
+      <a class="next-button small" href="/bio/bio5">NEXT</a>
     </div>
   </div>
 </div>

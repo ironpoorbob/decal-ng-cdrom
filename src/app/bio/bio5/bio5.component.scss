@@ -1,0 +1,21 @@
+
+.bio5 {
+  .text {
+    z-index: 1000;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: -2px;
+  }
+  .image {
+    z-index: 100;
+    position: relative;
+    .image-wrapper {
+      position: relative;
+      left: -100px;
+    }
+  }
+  .controls {
+    // position: relative;
+    padding-top: 40px;
+  }
+}

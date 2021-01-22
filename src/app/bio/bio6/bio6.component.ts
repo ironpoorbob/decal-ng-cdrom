@@ -4,11 +4,11 @@ import { Subscription, ReplaySubject } from 'rxjs';
 import { StateManagerService } from '../../state-manager.service';
 
 @Component({
-  selector: 'app-bio5',
-  templateUrl: './bio5.component.html',
-  styleUrls: ['./bio5.component.scss']
+  selector: 'app-bio6',
+  templateUrl: './bio6.component.html',
+  styleUrls: ['./bio6.component.scss']
 })
-export class Bio5Component implements OnInit {
+export class Bio6Component implements OnInit {
 
   public imagePath = '';
 
@@ -27,7 +27,7 @@ export class Bio5Component implements OnInit {
       }
     )
 
-    this.imagePath = this.dataObj.baseUrl + 'assets/images/boom11.jpg';
+    this.imagePath = this.dataObj.baseUrl + 'assets/images/big-boom-6.jpg';
   }
 
   public ngOnDestroy(): void {
