@@ -12,6 +12,10 @@
     .image-wrapper {
       position: relative;
       left: -100px;
+      img {
+        width: auto;
+        max-height: 500px;
+      }
     }
   }
   .controls {

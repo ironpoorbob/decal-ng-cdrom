@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./video-player.component.scss']
 })
 export class VideoPlayerComponent implements OnInit {
-  @Input() item: string;
+  @Input() item: object;
 
   constructor() { }
 
@@ -33,15 +33,19 @@ export class VideoPlayerComponent implements OnInit {
     firstScriptTag.parentNode.insertBefore(playerApiScript, firstScriptTag);
   }
 
-  public insertYouTubeIframe(video: string) {
+  public insertYouTubeIframe(videoObj: object) {
     // let player;
+    // let autoPlayVal = videoObj["autoPlay"] ?
     (<any>window).onYouTubeIframeAPIReady = () => {
       (<any>window).player = new (<any>window).YT.Player('ytplayer', {
         height: '390',
         width: '640',
-        videoId: video,
+        videoId: videoObj["videoUrl"],
         playerVars: {
-          'rel': 0, 'controls': 2, 'enablejsapi': 1
+          'autoplay': videoObj["autoPlay"] ? videoObj["autoPlay"] : 0,
+          'rel': 0, 
+          'controls': 2, 
+          'enablejsapi': 1
         },
         events: {
           'onReady': this.onPlayerReady.bind(this),
@@ -62,6 +66,7 @@ export class VideoPlayerComponent implements OnInit {
       console.log('player state change: unstarted: ', event.data);
     } else if (event.data === 0) {
       // video ended
+
       console.log('player state change: ended: ', event.data);
     } else if (event.data === 1) {
       // video playing

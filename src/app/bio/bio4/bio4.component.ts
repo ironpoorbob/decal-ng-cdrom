@@ -9,7 +9,7 @@ import { StateManagerService } from '../../state-manager.service';
   styleUrls: ['./bio4.component.scss']
 })
 export class Bio4Component implements OnInit {
-  public videoUrl: string = '';
+  public videoObj: object = {};
 
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
@@ -25,7 +25,11 @@ export class Bio4Component implements OnInit {
         this.dataObj = value;
       }
     )
-    this.videoUrl = 'yT_mQ81RlDQ';
+    this.videoObj = {
+      videoUrl: 'yT_mQ81RlDQ',
+      autoPlay: 1
+    }
+    // this.videoUrl = 'yT_mQ81RlDQ';
   }
 
   public ngOnDestroy(): void {
