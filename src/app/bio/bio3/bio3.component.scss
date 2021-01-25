@@ -13,4 +13,17 @@
     position: relative;
     top: -140px;
   }
+  .profile-links {
+    button {
+      background: none!important;
+      border: none;
+      padding: 0!important;
+      color: #007bff;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
