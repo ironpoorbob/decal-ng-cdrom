@@ -6,46 +6,15 @@ $maxheight: 560px;
 .profile {
 
   .text-block {
-    overflow: hidden;
     height: $maxheight;
   }
   .text {
-   
-    // height: 0;
-    // max-height: 400px;
     font-size: 18px;
     overflow: hidden;
-    animation: 
-      typing 1.5s;
-      // animation-delay: 1.25s;
+
     .profile-text-body {
-      // opacity: 0.0;
-      animation: 
-      text-opacity 0.25s;
-      // animation-delay: 1s;
+      overflow: hidden;
     }
   }
 
-  @-webkit-keyframes text-opacity {
-    from { opacity: 0.0; }
-    to { opacity: 1.0 }
-  }
-  @keyframes text-opacity {
-    from { opacity: 0.0; }
-    to { opacity: 1.0 }
-  }
-
-  @-webkit-keyframes typing {
-    // 0% {opacity: 0.0; max-height: 72px;}
-    // 1% {opacity: 1.0; max-height: 72px;}
-    from { max-height: 72px }
-    to { max-height: $maxheight }
-  }
-
-  @keyframes typing {
-    // 0% {opacity: 0.0; max-height: 72px;}
-    // 1% {opacity: 1.0; max-height: 72px;}
-    from { max-height: 72px }
-    to { max-height: $maxheight }
-  }
 }

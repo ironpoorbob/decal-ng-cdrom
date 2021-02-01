@@ -54,14 +54,14 @@ export class StateManagerService {
     let waitTime = undefined;
 
     this.dataObj['loop'] = loop;
-    // console.log('start loop:::: ', this.dataObj);
+    // console.log('start loop:::: ', loop, ' ::: ', this.dataObj);
     switch(loop) {
       case 'home':
         this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
         waitTime = 0;
         break;
       case 'credits':
-        this.audio = new Audio("assets/audio/cocktails1.mono.22.mp3");
+        this.audio = new Audio("assets/audio/loops-updated/cocktails1-loop-mono.mp3");
         waitTime = 500;
         break;
       case 'ask':
@@ -77,7 +77,7 @@ export class StateManagerService {
         waitTime = 800;
         break;
       case 'bio2':
-        this.audio = new Audio("assets/audio/grind 2.mono.22.mp3");
+        this.audio = new Audio("assets/audio/loops-updated/grind2-loop-mono.mp3");
         break;
       case 'bio3':
         this.audio = new Audio("assets/audio/grind3.mono.mp3");
@@ -96,6 +96,11 @@ export class StateManagerService {
           this.audio.play();
         }, waitTime);
       })
+
+      this.audio.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+      }, false);
     // }
 
 

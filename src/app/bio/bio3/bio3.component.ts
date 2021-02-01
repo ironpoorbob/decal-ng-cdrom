@@ -40,10 +40,22 @@ export class Bio3Component implements OnInit {
   }
 
   public async handleProfileClick(index) {
+    this.stateManagerService.stopLoop();
     let audio = new Audio(this.dataObj.baseUrl + 'assets/audio/profiles/spacecLick3.mp3');
     await audio.play();
 
     this.router.navigateByUrl('/bio/profile' + index);
+  }
+
+  public handlePrevClick() {
+    this.stateManagerService.stopLoop();
+    this.stateManagerService.startLoop("bio2");
+    this.router.navigateByUrl('/bio/bio2');
+  }
+
+  public handleNextClick() {
+    this.stateManagerService.stopLoop();
+    this.router.navigateByUrl('/bio/bio4');
   }
 
 }

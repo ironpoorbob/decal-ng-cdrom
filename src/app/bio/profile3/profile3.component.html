@@ -1,36 +1,56 @@
+
 <div class="container">
   <div class="profile">
     <div class="row">
-      <div class="col col-lg-4 text">
+      <div class="col col-lg-4">
         <img src="/assets/images/steve-face.jpg">
       </div>
       <div class="col col-lg-7 text">
-        <p>Vital Statistics</p>
-        <p class="list-header">Steve Faine</p>
-        <ul>
-          <li>bassist</li>
-          <li>6’4” 230 lbs</li>
-          <li>Hair: Blu </li>
-          <li>Eyes: Brn</li>
-        </ul>
-        <p class="list-header">Code Name:</p>
-        <ul>
-          <li>Chewbacca</li>
-        </ul>
-        <p class="list-header">Recognizable scars, tattoos or birthmarks:</p>
-        <ul>
-          <li>tattoo of the last supper just above the pubic line</li>
-        </ul>
-        <p class="list-header">Greatest Aspirations:</p>
-        <ul>
-          <li>to take one band picture where eyes are completely open</li>
-        </ul>
-        <p class="list-header">Hobbies:</p>
-        <ul>
-          <li>tooth decay, bad movies & scaring small children</li>
-        </ul>
-  
+        <div class="row">
+          <div class="col text-header">
+            <p>Vital Statistics</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col profile-text-body">
+
+            <div class="animation1" [@openClose]="isOpen ? 'open' : 'closed'">
+              <p class="list-header">Steve Faine</p>
+              <ul>
+                <li>bassist</li>
+                <li>6’4” 230 lbs</li>
+                <li>Hair: Blu </li>
+                <li>Eyes: Brn</li>
+              </ul>
+              <p class="list-header">Code Name:</p>
+            </div>
+
+            <div class="animation2" [@openClose2]="isOpen2 ? 'open2' : 'closed2'">
+              <ul>
+                <li>Chewbacca</li>
+              </ul>
+              <p class="list-header">Recognizable scars, tattoos or birthmarks:</p>
+              <ul>
+                <li>tattoo of the last supper just above the pubic line</li>
+              </ul>
+              <p class="list-header">Greatest Aspirations:</p>
+              <ul>
+                <li>to take one band picture where eyes are completely open</li>
+              </ul>
+              <p class="list-header">Hobbies:</p>
+              <ul>
+                <li>tooth decay, bad movies & scaring small children</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      <div class="col col-lg-1 text-block"></div>
+
     </div>
 
     <div class="row">

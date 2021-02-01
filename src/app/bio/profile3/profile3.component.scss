@@ -1,6 +1,24 @@
 
 @import '../profile.scss';
 
+$maxheight: 600px;
+
 .profile {
+
+  .text-block {
+    height: $maxheight;
+  }
+
+  .text {
+    font-size: 18px;
+    overflow: hidden;
+    .profile-text-body {
+      overflow: hidden;
+    }
+    .animation1 {
+      // display: inline-block;
+      overflow: hidden;
+    }
+  }
   
 }
