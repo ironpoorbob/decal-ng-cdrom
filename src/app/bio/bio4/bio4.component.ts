@@ -41,4 +41,16 @@ export class Bio4Component implements OnInit {
     this.stateManagerService.stopLoop();
   }
 
+  public handlePrevClick() {
+    // this.stateManagerService.stopLoop();
+    this.stateManagerService.startLoop("bio3");
+    this.router.navigateByUrl('/bio/bio3');
+  }
+
+  public handleNextClick() {
+    this.stateManagerService.stopLoop();
+    this.stateManagerService.startLoop("bio1");
+    this.router.navigateByUrl('/bio/bio5');
+  }
+
 }

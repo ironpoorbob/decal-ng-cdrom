@@ -137,7 +137,7 @@ export class BottonHsComponent implements OnInit, OnDestroy {
       })
     }
 
-    console.log('promise : ', Promise);
+    // console.log('promise : ', Promise);
   }
 
   public handleMouseEnter(evt, index) {

@@ -26,6 +26,10 @@ export class Bio2Component implements OnInit {
       }
     )
     this.imagePath = this.dataObj.baseUrl + 'assets/images/big-boom-7.jpg';
+
+    // this wont work on load because the browser wont play music without user interactivty first
+    // this.stateManagerService.stopLoop();
+    // this.stateManagerService.startLoop('bio2');
   }
 
   public ngOnDestroy(): void {
@@ -35,6 +39,18 @@ export class Bio2Component implements OnInit {
   public handleMenuClick() {
     this.router.navigateByUrl('/home');
     this.stateManagerService.stopLoop();
+  }
+
+  public handlePrevClick() {
+    this.stateManagerService.stopLoop();
+    this.stateManagerService.startLoop("bio1");
+    this.router.navigateByUrl('/bio/bio1');
+  }
+
+  public handleNextClick() {
+    this.stateManagerService.stopLoop();
+    this.stateManagerService.startLoop("bio3");
+    this.router.navigateByUrl('/bio/bio3');
   }
 
 }
