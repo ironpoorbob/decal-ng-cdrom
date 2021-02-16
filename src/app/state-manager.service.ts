@@ -18,7 +18,12 @@ export class StateManagerService {
     hpButton1: false,
     hpButton2: false,
     loop: '',
-    baseUrl: ''
+    baseUrl: '',
+    videoObj: {
+      videoUrl: '',
+      autoPlay: undefined,
+      clickPlay: false
+    }
   }
 
   constructor() { }
@@ -42,22 +47,12 @@ export class StateManagerService {
   // current loop name var
 
   public startLoop(loop): void {
-    // home crabs.mono.22.mp3
-    // credits  cocktails1.mono.22.mp3
-    // ask/videos cocktails3.mono.22.mp3
-    // game figure1.mono.22.mp3
-    // bio slide1  grind1.mono.mp3
-    // bio slide2  grind 2.mono.22.mp3
-    // bio slide3  grind3.mono.mp3
-
-    // let audio;
     let waitTime = undefined;
 
     this.dataObj['loop'] = loop;
-    // console.log('start loop:::: ', loop, ' ::: ', this.dataObj);
     switch(loop) {
       case 'home':
-        this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
+        this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
         waitTime = 0;
         break;
       case 'credits':
@@ -65,7 +60,7 @@ export class StateManagerService {
         waitTime = 500;
         break;
       case 'ask':
-        this.audio = new Audio("assets/audio/cocktails3.mono.22.mp3");
+        this.audio = new Audio("assets/audio/loops-updated/cocktails3-loop-mono.mp3");
         waitTime = 800;
         break;
       case 'game':
@@ -83,27 +78,21 @@ export class StateManagerService {
         this.audio = new Audio("assets/audio/grind3.mono.mp3");
         break;
       default:
-        this.audio = new Audio("assets/audio/crabs.mono.22.mp3");
+        this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
         waitTime = 800;
         break;
     }
 
-    // if (newRoute !== '') {
-      new Promise((res) => {
-        setTimeout(() => {
-          // this.router.navigateByUrl(newRoute);
-          // res();
-          this.audio.play();
-        }, waitTime);
-      })
+    new Promise((res) => {
+      setTimeout(() => {
+        this.audio.play();
+      }, waitTime);
+    })
 
-      this.audio.addEventListener('ended', function() {
-        this.currentTime = 0;
-        this.play();
-      }, false);
-    // }
-
-
+    this.audio.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
   }
 
   public stopLoop(): void {
