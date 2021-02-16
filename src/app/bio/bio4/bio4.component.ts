@@ -11,6 +11,8 @@ import { StateManagerService } from '../../state-manager.service';
 export class Bio4Component implements OnInit {
   public videoObj: object = {};
 
+  public videoUrl: string = "";
+
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
@@ -27,8 +29,13 @@ export class Bio4Component implements OnInit {
     )
     this.videoObj = {
       videoUrl: 'yT_mQ81RlDQ',
-      autoPlay: 1
+      autoPlay: 1,
+      clickPlay: false
     }
+
+    this.videoUrl = 'https://www.youtube.com/embed/yT_mQ81RlDQ?autoplay=1&rel=0&controls=2&enablejsapi=1'
+
+    this.stateManagerService.setValue('videoObj', this.videoObj);
     // this.videoUrl = 'yT_mQ81RlDQ';
   }
 
@@ -51,6 +58,16 @@ export class Bio4Component implements OnInit {
     this.stateManagerService.stopLoop();
     this.stateManagerService.startLoop("bio1");
     this.router.navigateByUrl('/bio/bio5');
+  }
+
+  public handleVideoPlay() {
+    this.videoObj = {
+      videoUrl: 'yT_mQ81RlDQ',
+      autoPlay: 1,
+      clickPlay: true
+    }
+
+    this.stateManagerService.setValue('videoObj', this.videoObj);
   }
 
 }

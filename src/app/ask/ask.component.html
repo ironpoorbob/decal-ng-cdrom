@@ -2,11 +2,186 @@
 <div class="container">
   <div class="ask">
 
+    <div class="lightbox-container" *ngIf="showVideoPlayer" 
+      [class.bandKick]="kickShow"
+      (click)="handleCloseClick()">
+      <div class="lightbox-wrapper">
+        <button aria-label="Close" class="lightbox-btn lightbox-btn-close" (click)="handleCloseClick()"></button>
+        <div class="lightbox-content">
+          <div class="lightbox-video-wrapper">
+
+            <div class="row video-row" *ngIf="!kickShow">
+              <div class="col col-lg-auto video-wrapper">
+                <div class="video">
+                  <div class="row">
+                    <div class="col col-lg-auto">
+                      <iframe width="640" height="390" [src]="videoUrl | urlSanitize" frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row kickBig" *ngIf="kickShow">
+              <div class="col col-lg-auto">
+                <img [src]="kickPath">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
-      <div class="col offset-lg-1 col-lg-3">
+      <div class="col col-lg-12 bgimage" [style.backgroundImage]="'url('+ backgroundImagePath('background') +')'">
+
+        <div class="row">
+          <div class="bg-overlay col col-lg-12" [style.backgroundImage]="'url('+ backgroundImagePath('overlay') +')'"
+              [@openClose]="isOpen ? 'open' : 'closed'">
+
+            <div class="col col-lg-12 links" 
+              [@openClose]="isOpen2 ? 'open' : 'closed'"
+              (@openClose.done)="onAnimationEvent($event)"
+              [class.hideLinks]="hideLinks">
+              <div class="row">
+                <div class="col offset-lg-2 col-lg-10 suits">
+                  <button (click)="handleAskClick('suits')">Hey, you morons! What's with the suits?</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-lg-3 hungry">
+                <button (click)="handleAskClick('hungry')">Hungry?</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-3 col-lg-4 live">
+                  <button (click)="handleAskClick('live')">The live show</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-1 col-lg-9 strings">
+                  <button (click)="handleAskClick('strings')">Break strings much?</button>
+                </div>
+                <div class="col offset-lg-7 col-lg-4 rear">
+                  <button (click)="handleAskClick('rear')">A rear view?</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-3 col-lg-9 weird">
+                  <button (click)="handleWeirdClick()">Let's get weird for a sec, ok?</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-1 col-lg-5 show">
+                  <button (click)="handleAskClick('show')">What's a good show?</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-5 col-lg-7 time">
+                  <button (click)="handleAskClick('time')">I ain't got no time!</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col offset-lg-11 col-lg-1 kick">
+                  <a href="#" (click)="handleKickImage($event)">
+                    <img [src]="kickPath">
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col col-lg-12 weirdSlide" *ngIf="weirdSlideShow">
+              <div class="row" *ngIf="weirdSlideShow1">
+                <div class="col offset-lg-1 col-lg-10 weirdSlide1">
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        Ever been to the front of traffic? No? Well, we know how you feel. Kinda. So, we've decided to let you in on the secret of the ages (Decal requires band members to not only hold an advanced degree in esoteric philosophy, but also to have been successfully reprogrammed after escaping one or another local cults).
+                        <br><br>
+                        And here it is...
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row continue-row justify-content-center">
+                    <div class="col col-lg-4 continue">
+                      <button class="back-button inverse" (click)="advanceSlide(2)">CONTINUE</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div class="row" *ngIf="weirdSlideShow2">
+                <div class="col offset-lg-1 col-lg-10 weirdSlide1">
+                  <div class="row">
+                    <div class="col">
+                      <p>
+                        The most important thing one should seek during mankind's brief stay here on earth (besides an unknown pointbreak for surfing) is......
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row continue-row justify-content-center">
+                    <div class="col col-lg-4 continue">
+                      <button class="back-button inverse" (click)="advanceSlide(3)">CONTINUE</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div class="row" *ngIf="weirdSlideShow3">
+                <div class="col offset-lg-1 col-lg-10 weirdSlide1">
+                  <div class="row video-row">
+                    <div class="col">
+                      <iframe width="640" height="390" src="https://www.youtube.com/embed/z19-O2SEC6I?autoplay=1&rel=0&controls=2&enablejsapi=1" frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                  <div class="row continue-row justify-content-center">
+                    <div class="col col-lg-4 continue">
+                      <button class="back-button inverse" (click)="advanceSlide(4)">CONTINUE</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div class="row" *ngIf="weirdSlideShow4">
+                <div class="col offset-lg-1 col-lg-10 weirdSlide1">
+                  <div class="row pizza-bob">
+                    <div class="col offset-lg-2 col-lg-8">
+                      <img [src]="pizzaBoyPath">
+                    </div>
+                  </div>
+                  <div class="row pizza-text">
+                    <div class="col offset-lg-2 col-lg-8">
+                      <p>
+                        If we told you that, we'd have to kill you.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row continue-row justify-content-center">
+                    <div class="col col-lg-4 continue">
+                      <button class="back-button inverse" (click)="advanceSlide(5)">CONTINUE</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row controls">
+      <div class="col col-lg-3">
         <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
       </div>
     </div>
-    
+
   </div>
 </div>
