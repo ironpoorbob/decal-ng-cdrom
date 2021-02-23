@@ -1,5 +1,160 @@
 
 
 .game {
+  position: relative;
+
+  .board {
+    .bgimage {
+      padding-left: 0;
+      padding-right: 0;
+      display: block;
+      height: 600px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-size: 100% 100%;
+      max-width: 900px;
+    }
+  
+    .car-wrapper { position: relative; }
+    .car {
+      height: 100px;
+      width: 100px;
+      position: relative;
+      // top: 20px;
+      // left: 60px;
+      display: block;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-size: 100% 100%;
+    }
+    .boardTitle {
+      position: absolute;
+      top: 270px;
+      left: 60px;
+      color: #000;
+      .the {
+        line-height: 32px;
+        font-size: 32px;
+        display: block;
+      }
+      .decal {
+        line-height: 78px;
+        font-size: 86px;
+        display: block;
+      }
+      .bored {
+        line-height: 50px;
+        font-size: 54px;
+      }
+    }
+  }
+
+  .questions-wrapper {
     
+    .questions {
+      min-height: 600px;
+      display: block;
+      .headline {
+        // margin-bottom: 8px;
+      }
+      h2 {
+        font-size: 48px;
+      }
+      p {
+        font-size: 24px;
+        &.subheadline {
+          font-size: 28px;
+          line-height: 32px;
+          padding-left: 0;
+          margin-bottom: 40px;
+        }
+        padding-left: 8px;
+        line-height: 28px;
+        letter-spacing: -1.5px;
+        // line-height: 38px;
+      }
+
+      .question {
+        margin-bottom: 10px;
+      }
+
+
+
+      input[type=checkbox].css-checkbox {
+        display: none;
+      }
+
+      input[type=checkbox].css-checkbox {
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
+      }
+
+      input[type=checkbox].css-checkbox:checked + label.css-label.cb0 {
+        background-position: 0 -50px;
+      }
+
+      input[type=checkbox].css-checkbox + label.css-label.cb0 {
+        background-size: 50px;
+        padding-left: 55px;
+        height: 50px;
+        display: inline-block;
+        line-height: 50px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+
+      label.css-label.cb0 {
+        background-image: url(/assets/images/checkbox.png);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+      // input[type="checkbox" i] {
+      //   background-color: initial;
+      //   cursor: default;
+      //   appearance: auto;
+      //   box-sizing: border-box;
+      //   margin: 3px 3px 3px 4px;
+      //   padding: initial;
+      //   border: initial;
+      // }
+
+    }
+  }
+
+  .answers {
+    padding-top: 40px;
+    min-height: 600px;
+    p {
+      font-size: 28px;
+      letter-spacing: -1.5px;
+      line-height: 38px;
+    }
+    .answer-controls {
+      margin-top: 40px;
+    }
+  }
+
+  .controls {
+    margin-top: 20px;
+    .continue {
+      position: relative;
+      top: -150px;
+    }
+  }
 }
