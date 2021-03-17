@@ -15,14 +15,14 @@
       background-size: 100% 100%;
       max-width: 900px;
     }
-  
-    .car-wrapper { position: relative; }
-    .car {
+    .van-wrapper { position: relative; }
+    .van {
       height: 100px;
       width: 100px;
       position: relative;
-      // top: 20px;
-      // left: 60px;
+      top: 20px;
+      left: 60px;
+      // opacity: 0;
       display: block;
       background-position: center;
       background-repeat: no-repeat;
@@ -138,7 +138,8 @@
   }
 
   .answers {
-    padding-top: 40px;
+    // padding-top: 40px;
+
     min-height: 600px;
     p {
       font-size: 28px;
@@ -147,6 +148,32 @@
     }
     .answer-controls {
       margin-top: 40px;
+    }
+    .topPadding {
+      padding-top: 40px;
+    }
+    .centerAlign {
+      text-align: center;
+    }
+
+    .intro-screen {
+      h2 {
+        font-size: 60px;
+      }
+      p {
+        font-size: 24px;
+        line-height: 30px;
+      }
+      .intro-van {
+        height: 200px;
+        width: 236px;
+        position: relative;
+        display: block;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: 100% 100%;
+      }
     }
   }
 

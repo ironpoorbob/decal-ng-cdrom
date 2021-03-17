@@ -1,12 +1,17 @@
 <div class="container">
   <div class="game">
 
-    <div class="row board" *ngIf="showBoard">
-      <div class="col col-lg-12 bgimage" [style.backgroundImage]="'url('+ boardPath +')'">
-        <div class="car" 
-          *ngIf="gameStart"
-          [@openClose]="isOpen ? 'open' : 'closed'"
-          [style.backgroundImage]="'url('+ van +')'"
+    <div class="row justify-content-center board" *ngIf="showBoard">
+      <div class="col col-lg-12 bgimage" [style.backgroundImage]="'url('+ boardImgPath +')'">
+        <div class="van" 
+          *ngIf="showVan"
+          [@moveVan]="{value : vanstate, 
+            params: {
+              xPos: gamedata[gameInd].answers[answerIndex].xMove, 
+              yPos: gamedata[gameInd].answers[answerIndex].yMove, 
+              prevX: gamedata[gameInd].answers[answerIndex].startXpos, 
+              prevY: gamedata[gameInd].answers[answerIndex].startYpos}}"
+          [style.backgroundImage]="'url('+ vanImgPath +')'"
           ></div>
         <div class="boardTitle">
           <span class="the">the</span>
@@ -19,9 +24,9 @@
     <div class="row questions-wrapper" *ngIf="!showBoard">
       <div class="col col-lg-12">
         <div class="row">
-          <div class="col col-lg-12 offset-xl-1 col-xl-10">
+          <div class="col col-lg-12 offset-xl-1 col-xl-10" *ngIf="!showAnswer">
 
-            <div class="questions" *ngIf="!showAnswer">
+            <div class="questions">
               <form >
               <div class="row headline">
                 <div class="col col-lg-1"><h2>{{gameInd + 1}}.</h2></div>
@@ -31,32 +36,42 @@
                 <div class="col offset-lg-1 col-lg-11"><p class="subheadline" [innerHTML]="gamedata[gameInd].questionSubheadline"></p></div>
               </div>
               <div class="row question" *ngFor="let question of gamedata[gameInd].questions; let idx = index;">
-                <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx)"><label for="{{'cbG0' + idx}}" class="css-label cb0"></label></div>
+                <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx, gamedata[gameInd].answers[idx])"><label for="{{'cbG0' + idx}}" class="css-label cb0"></label></div>
                 <div class="col col-lg-11"><p [innerHTML]="question.question"></p></div>
               </div>
               </form> 
+              <div class="row justify-content-center" *ngIf="gamedata[gameInd].questions.length === 0">
+                <div class="col col-lg-auto">
+                  <button class="back-button" 
+                    (click)="handleQuestionContinue()">CONTINUE</button>
+                </div>
+              </div>
             </div>
 
-            <div class="answers" *ngIf="showAnswer">
+          </div>
+
+          <div class="col col-lg-12 offset-xl-1 col-xl-10" *ngIf="showAnswer">
+            <div class="answers">
               <div *ngTemplateOutlet="getTemplate()"></div> 
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
 
     <div class="row controls">
-      <div class="col col-lg-3">
+      <div class="col offset-xl-1 col-lg-3">
         <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
       </div>
-      <div class="col offset-lg-3 col-lg-2" *ngIf="gameStart">
-        <button class="back-button inverse continue" (click)="handleGameStartClick()">CONTINUE</button>
+      <div class="col offset-lg-3 col-lg-2 offset-xl-2" *ngIf="startScreen">
+        <button class="back-button inverse continue" (click)="handleIntroContinueClick()">CONTINUE</button>
       </div>
     </div>
     <div class="row controls">
-      <div class="col offset-lg-6 col-lg-2">
+      <div class="col offset-lg-4 col-lg-2">
+        <button class="prev-button small" (click)="handleAnimationStartClick()">START</button>
+      </div>
+      <div class="col col-lg-2">
         <button class="prev-button small" (click)="handleFlipClick()">FLIP</button>
       </div>
       <div class="col col-lg-2">
@@ -71,29 +86,62 @@
 </div>
 
 
-<ng-template #myTemplateRef1>
+<ng-template #answerTemplateRef1>
   <div class="row">
-    <div class="col col-lg-12">
+    <div class="col col-lg-12"
+      [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment"
+      [class.topPadding]="!gamedata[gameInd].answers[answerIndex].videoName">
       <p [innerHTML]="gamedata[gameInd].answers[answerIndex].answer"></p>
+    </div>
+  </div>
+  <div class="row justify-content-center" *ngIf="getShowVideo(gamedata[gameInd].answers[answerIndex])">
+    <div class="col col-lg-auto">
+      <iframe width="640" height="390" 
+        [src]="getVideoUrl(gamedata[gameInd].answers[answerIndex].videoName) | urlSanitize" 
+        frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div class="row" *ngIf="getShowVideo(gamedata[gameInd].answers[answerIndex])">
+    <div class="col col-lg-12"
+    [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment">
+      <p class="caption" [innerHTML]="gamedata[gameInd].answers[answerIndex].caption"></p>
     </div>
   </div>
   <div class="row justify-content-center answer-controls">
     <div class="col col-lg-auto">
-      <button class="back-button" (click)="handleAnswerClick()">CONTINUE</button>
+      <button class="back-button" (click)="handleAnswerClick(gamedata[gameInd].answers[answerIndex])">CONTINUE</button>
     </div>
   </div>
 </ng-template>
 
-<ng-template #myTemplateRef2>
-  <div class="row">
-    <div class="col col-lg-12">
-      <p>ITEM 2 template
-        </p>
+<ng-template #answerTemplateRef2>
+  <div class="intro-screen">
+    <div class="row">
+      <div class="col offset-lg-1 col-lg-10">
+        
+        <div class="row headline justify-content-center">
+          <div class="col col-lg-auto"><h2>Start here!</h2></div>
+        </div>
+        <div class="row">
+          <div class="col col-lg-12">
+            <p class="subheadline">
+              Your tour van is loaded down with vastly over-sized equipment after you have successfully persuaded your fellow band members that with your bad back you couldn’t possibly be expected to lift your own equipment. Now it’s time to...
+            </p>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col col-lg-auto">
-      <button class="back-button" (click)="handleAnswerClick()">CONTINUE</button>
+    <div class="row justify-content-center">
+      <div class="col col-lg-auto">
+        <div class="intro-van" 
+        [style.backgroundImage]="'url('+ vanGlowImgPath +')'"></div>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col col-lg-auto">
+        <button class="back-button" (click)="handleGameStartClick()">CONTINUE</button>
+      </div>
     </div>
   </div>
 </ng-template>

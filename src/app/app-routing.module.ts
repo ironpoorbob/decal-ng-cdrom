@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { Subscription, ReplaySubject } from 'rxjs';
 
 import { IntroComponent } from '../app/intro/intro.component';
 import { HomeComponent } from '../app/home/home.component';
@@ -18,6 +19,8 @@ import { Profile3Component } from '../app/bio/profile3/profile3.component';
 import { Profile4Component } from '../app/bio/profile4/profile4.component';
 import { CreditsComponent } from '../app/credits/credits.component';
 import { OutroComponent } from '../app/outro/outro.component';
+
+import { StateManagerService } from '../app/state-manager.service';
 
 const routes: Routes = [
   { path: 'intro', component: IntroComponent },
@@ -42,11 +45,24 @@ const routes: Routes = [
   },
   { path: 'credits', component: CreditsComponent },
   { path: 'outro', component: OutroComponent },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+  public dataObjSubscription: Subscription;
+  public dataObj: any; // data received
+
+  constructor(private stateManagerService: StateManagerService) {
+    this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
+      value => {
+        this.dataObj = value;
+        // console.log('object state in button: ', value);
+      }
+    )
+
+  }
+}

@@ -47,7 +47,7 @@ export class BottonHsComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    console.log('whats in data: ', this.data);
+    // console.log('whats in data: ', this.data);
 
     this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
       value => {
@@ -83,7 +83,7 @@ export class BottonHsComponent implements OnInit, OnDestroy {
     let section = '';
     let newRoute = '';
     this.expandedName = name;
-    console.log('clicked: ', evt.target, ' : ', name, ' : ', index);
+    // console.log('clicked: ', evt.target, ' : ', name, ' : ', index);
     switch(index) {
       case 0:
         audioVal1 = 'assets/audio/hits/fist1-hit.mp3';
