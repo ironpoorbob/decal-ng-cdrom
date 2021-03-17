@@ -85,13 +85,13 @@ export class StateManagerService {
 
     new Promise((res) => {
       setTimeout(() => {
-        this.audio.play();
+        // this.audio.play();
       }, waitTime);
     })
 
     this.audio.addEventListener('ended', function() {
       this.currentTime = 0;
-      this.play();
+      // this.play();
     }, false);
   }
 

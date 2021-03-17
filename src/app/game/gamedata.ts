@@ -1,5 +1,6 @@
 export const gamedata = [
   {
+    id: '1',
     headline: "Try to start the Van.",
     questionSubheadline: "Van doesn’t start, do you...",
     questions: [
@@ -8,20 +9,47 @@ export const gamedata = [
       {question: "c) yell at the member of the band who owns the van (and who got it just for the bands use) that he/she better get under the hood and fix this piece of crap fast or you're going to find a new bass player and/or drummer (singers and guitarists never own vans)."}
     ],
     answers: [
-      {answer: "No one in your band or for that matter anyone you know has a AAA card. <br><br>Start again."},
-      {answer: "Yeah right. If you picked this one your day job is too good. Give up and get a promotion. Quit this game and sell it to your little brother or sister."},
-      {answer: "You’re off to a good start! Move ahead one square."}
+      {
+        answer: "No one in your band or for that matter anyone you know has a AAA card. <br><br>Start again.",
+        correct: false,
+        nextStep: 'intro'
+      },
+      {
+        answer: "Yeah right. If you picked this one your day job is too good. Give up and get a promotion. Quit this game and sell it to your little brother or sister.",
+        correct: false,
+        nextStep: 'outro'
+      },
+      {
+        answer: "You’re off to a good start! Move ahead one square.",
+        correct: true,
+        startXpos: 40,
+        startYpos: 50,
+        xMove: 95,
+        yMove: 0
+      }
     ]
   },
   {
+    id: '2',
     headline: "Ego!",
     questionSubheadline: "Since your band is at least together enough to get a couple of shows and call it a tour, your lead singer’s head is now so big it’s gonna explode. Help him/her?",
     questions: [],
     answers: [
-      {answer: "“I’m ready for my close up Mr. DeMille!” There’s no helping you!"}
+      {
+        alignment: "center",
+        answer: "“I’m ready for my close up Mr. DeMille!”",
+        caption: "There’s no helping you!",
+        videoName: "closeup",
+        correct: true,
+        startXpos: 135,
+        startYpos: 50,
+        xMove: 40,
+        yMove: 55
+      }
     ]
   },
   {
+    id: '3',
     headline: "You’re Bored!",
     questionSubheadline: "One hour into the trip everyone’s already exhausted their conversation storage tanks. Boredom has begun! What do you do?",
     questions: [
@@ -30,12 +58,26 @@ export const gamedata = [
       {question: "c) Start farting."},
     ],
     answers: [
-      {answer: "While actually not a bad idea, the other members of the<br> band will proceed to inflict bodily harm on you in order<br> to get rid of their own intense boredom."},
-      {answer: "Yeah Right. (see question 1, answer b) How about the business end of this!"},
-      {answer: "No one knows why, but bands just do this.<br> Yes, even girl bands.<br> Move ahead one square."},
+      {
+        answer: "While actually not a bad idea, the other members of the band will proceed to inflict bodily harm on you in order to get rid of their own intense boredom.",
+        correct: false
+      },
+      {
+        answer: "Yeah Right. (see question 1, answer b) How about the business end of this!",
+        correct: false  
+      },
+      {
+        answer: "No one knows why, but bands just do this.<br> Yes, even girl bands.<br> Move ahead one square.",
+        correct: true,
+        startXpos: 190,
+        startYpos: 90,
+        xMove: 35,
+        yMove: 70
+      },
     ]
   },
   {
+    id: '4',
     headline: "Wrong Turn!",
     questionSubheadline: "You forget to bring a map and the guy who said<br> he knew directions fell asleep long ago. Do you...",
     questions: [
@@ -44,16 +86,32 @@ export const gamedata = [
       {question: "c) stop and get beer."},
     ],
     answers: [
-      {answer: "Not a bad idea and certainly takes the least<br> effort (always a plus). Possibly dangerous when<br> everyone wakes up in___________ (insert your least<br> favorite nowhere town here)."},
-      {answer: "Although tempting, it’s much too early in the<br> trip to display this sort of aggression. <br> Move back one space."},
-      {answer: "Now you’re getting the hang of this!<br> Your band members will love you and since<br> you’re getting a good buzz going, who cares<br> where you are.<br> Move ahead one space. "},
+      {
+        answer: "Not a bad idea and certainly takes the least<br> effort (always a plus). Possibly dangerous when<br> everyone wakes up in___________ (insert your least<br> favorite nowhere town here).",
+        correct: false
+      },
+      {
+        answer: "Although tempting, it’s much too early in the<br> trip to display this sort of aggression. <br> Move back one space.",
+        correct: false
+      },
+      {
+        answer: "Now you’re getting the hang of this!<br> Your band members will love you and since<br> you’re getting a good buzz going, who cares<br> where you are.<br> Move ahead one space. ",
+        correct: true,
+        startXpos: 225,
+        startYpos: 155,
+        xMove: 70,
+        yMove: 15
+      },
     ]
   },
   {
+    id: '5',
     headline: "Need gas.",
     questionSubheadline: "You’ve been drinking beer for seven hours. Believe<br> me you’ve got gas (see question 3, answer c). Keep moving, but collect gas money anyway.",
+    questions: []
   },
   {
+    id: '6',
     headline: "No show!",
     questionSubheadline: "After 16 hours of driving you arrive at the club for<br> your first show and… they fired their guy who booked<br> your show. The new booker refuses to honor the old<br> shows because she/he has their “thing” they’re trying<br> to do with the club. Do you...",
     questions: [
@@ -68,10 +126,13 @@ export const gamedata = [
     ]
   },
   {
+    id: '7',
     headline: "It worked!",
     questionSubheadline: "You played a great show to an empty house.<br> Unfortunately there was this one guy there…  <br><br>the <em>PsychoFan!</em> He hangs out alone at bad clubs and has no<br> interests. But your band has changed his life.<br> Your band is his new hobby. He wants to ride with you in your van for the rest of the tour.<br> Should you let him???? Yes?",
+    questions: []
   },
   {
+    id: '8',
     headline: "Sleep!",
     questionSubheadline: "You need a place to crash after the show, do you...",
     questions: [
@@ -88,6 +149,7 @@ export const gamedata = [
     ]
   },
   {
+    id: '9',
     headline: "On the road again...",
     questionSubheadline: "but everyone had that bad mexican food last<br> night. It’s 50 miles to the next rest stop. The<br> road is really winding. And bumpy.<br> Uuuuuuuhhhhhhhh. What are you going to do? ",
     questions: [
@@ -102,13 +164,10 @@ export const gamedata = [
     ]
   },
   {
+    id: '10',
     headline: "You’ve made it to the club. ",
     questionSubheadline: "You’ve arrived at the big club in town for the centerpiece<br> show of your tour. The show isn’t cancelled. You didn’t get<br> lost. The band didn’t break up in the van. Sound check goes<br> great. You’ve got a $400 guarantee. The local college radio<br> is broadcasting the show live. Major label suit-wearing<br> guys are trying to talk to the cool indie A&R guys who are<br> there to see your band. You play the best show of your life.<br> People help you carry your equipment and don’t steal<br> anything. That model-type asks if you need a place to stay...",
-    questions: [
-      {question: "xxxx"},
-      {question: "xxxx"},
-      {question: "xxxx"},
-    ],
+    questions: [],
     answers: [
       {answer: "WAKE UP!!! You fell asleep while driving the van.<br> Luckily PsychoFan wakes you up and you all survive.<br> Time to go home."},
     ]
