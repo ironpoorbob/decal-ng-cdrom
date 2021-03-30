@@ -9,12 +9,47 @@ html, html a {
 }
 
 html, body {
+  overflow: hidden;
   background-color: #000;
   color: #fff;
 
   padding-top: 1em;
 
   font-family: carbon;
+
+  .disclaimer {
+    font-family: Helvetica !important;
+    letter-spacing: 0;
+    font-size: 12px;
+  }
+  .questions-wrapper {
+    .answers {
+      span {
+        // font-family: Helvetica !important;
+        &.underlineItem {
+          font-family: Helvetica !important;
+        }
+      }
+      .disclaimer {
+        font-family: Helvetica !important;
+        letter-spacing: 0;
+        font-size: 12px;
+      }
+    }
+    .questions {
+      .question {
+        .questionItem {
+          span {
+            // font-family: Helvetica !important;
+            &.underlineItem {
+              font-family: Helvetica !important;
+              // border-bottom: 1px solid #fff !important;
+            }
+          }
+        }
+      }
+    }
+  }
 
   img {
     width: 100%;

@@ -30,20 +30,21 @@
               <form >
               <div class="row headline">
                 <div class="col col-lg-1"><h2>{{gameInd + 1}}.</h2></div>
-                <div class="col col-lg-11"><h2 [innerHTML]="gamedata[gameInd].headline"></h2></div>
+                <div class="col col-lg-11"><h2 [innerHTML]="gamedata[gameInd].headline"></h2>
+                </div>
               </div>
               <div class="row">
                 <div class="col offset-lg-1 col-lg-11"><p class="subheadline" [innerHTML]="gamedata[gameInd].questionSubheadline"></p></div>
               </div>
-              <div class="row question" *ngFor="let question of gamedata[gameInd].questions; let idx = index;">
+              <div class="row question" *ngFor="let questionData of gamedata[gameInd].questions; let idx = index;">
                 <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx, gamedata[gameInd].answers[idx])"><label for="{{'cbG0' + idx}}" class="css-label cb0"></label></div>
-                <div class="col col-lg-11"><p [innerHTML]="question.question"></p></div>
+                <div class="col col-lg-11"><p [innerHTML]="questionData.question" class="questionItem"></p></div>
               </div>
               </form> 
               <div class="row justify-content-center" *ngIf="gamedata[gameInd].questions.length === 0">
                 <div class="col col-lg-auto">
                   <button class="back-button" 
-                    (click)="handleQuestionContinue()">CONTINUE</button>
+                    (click)="handleQuestionContinue(gamedata[gameInd])">CONTINUE</button>
                 </div>
               </div>
             </div>
@@ -59,6 +60,11 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="showDisclaimer">
+      <div class="col offset-lg-1 col-lg-10">
+        <span class="disclaimer">(Remember kids, this is just a joke. Decal does not support the use of alcohol and the operation of motor vehicles.)</span>
+      </div>
+    </div>
     <div class="row controls">
       <div class="col offset-xl-1 col-lg-3">
         <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
@@ -87,11 +93,12 @@
 
 
 <ng-template #answerTemplateRef1>
-  <div class="row">
-    <div class="col col-lg-12"
-      [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment"
+  <div class="row headline-row">
+    <div class="col"
+      [ngClass]="gamedata[gameInd].answers[answerIndex].wide ? 'col-lg-12' : 'offset-lg-1 col-lg-10'"
+      [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment === 'center'"
       [class.topPadding]="!gamedata[gameInd].answers[answerIndex].videoName">
-      <p [innerHTML]="gamedata[gameInd].answers[answerIndex].answer"></p>
+      <p [innerHTML]="getAnswerHeader(gamedata[gameInd].answers[answerIndex].answer)"></p>
     </div>
   </div>
   <div class="row justify-content-center" *ngIf="getShowVideo(gamedata[gameInd].answers[answerIndex])">
@@ -142,6 +149,27 @@
       <div class="col col-lg-auto">
         <button class="back-button" (click)="handleGameStartClick()">CONTINUE</button>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #answerTemplateRef3>
+  <div class="row justify-content-center">
+    <div class="col col-lg-auto">
+      <iframe width="640" height="390"
+        [src]="getVideoUrl(gamedata[gameInd].answers[answerIndex].videoName) | urlSanitize" 
+        frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col col-lg-auto"
+    [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment">
+      <p class="caption">Well, thank you very much!</p>
+    </div>
+  </div>
+  <div class="row justify-content-center answer-controls">
+    <div class="col col-lg-auto">
+      <button class="back-button" (click)="handleMenuClick()">CONTINUE</button>
     </div>
   </div>
 </ng-template>
