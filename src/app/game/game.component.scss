@@ -58,21 +58,23 @@
       display: block;
       .headline {
         // margin-bottom: 8px;
-      }
-      h2 {
-        font-size: 48px;
+        h2 {
+          letter-spacing: -4px;
+          font-size: 48px;
+        }
       }
       p {
         font-size: 24px;
         &.subheadline {
           font-size: 28px;
           line-height: 32px;
+          letter-spacing: -3px;
           padding-left: 0;
           margin-bottom: 40px;
         }
         padding-left: 8px;
         line-height: 28px;
-        letter-spacing: -1.5px;
+        letter-spacing: -2.5px;
         // line-height: 38px;
       }
 
@@ -159,6 +161,7 @@
     .intro-screen {
       h2 {
         font-size: 60px;
+        letter-spacing: -3px;
       }
       p {
         font-size: 24px;

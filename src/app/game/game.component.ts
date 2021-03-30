@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, ReplaySubject, throwError } from 'rxjs';
 import { StateManagerService } from '../state-manager.service';
@@ -54,6 +54,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   public showVideo: boolean = false;
   public showVan: boolean = true;
   public startScreen: boolean = true; // only for continue button at start
+  public showDisclaimer: boolean = false;
+  // public secondClick: boolean = false; // second click in answer screen
 
   public vanstate: string = '';
 
@@ -73,11 +75,13 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('answerTemplateRef1') answerTemplateRef1: TemplateRef<any>;
   @ViewChild('answerTemplateRef2') answerTemplateRef2: TemplateRef<any>;
+  @ViewChild('answerTemplateRef3') answerTemplateRef3: TemplateRef<any>;
   public liveTemplate: TemplateRef<any>;
 
   constructor(
     private stateManagerService: StateManagerService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) { }
 
   public ngOnInit(): void {
@@ -89,6 +93,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         this.dataObj = value;
       }
     )
+
+    // this.handleUnderline();
+
 
     this.boardImgPath = this.dataObj.baseUrl + 'assets/images/game_board.jpg';
     this.vanImgPath = this.dataObj.baseUrl + 'assets/images/the-van.png';
@@ -177,6 +184,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public onCheckBoxChange(event, idx, val) {
     // this.showBoard = true;
+    console.log('checkbox val disclaimer: ', val.disclaimer);
+    this.showDisclaimer = val.disclaimer ? true : false;
     this.showAnswer = true;
     console.log('checkbox click, ', idx, ' : ', event, ' :::: ', val);
     this.answerIndex = idx;
@@ -190,13 +199,40 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   // continue button click on answer screen
   public handleAnswerClick(val) {
     console.log('NEXT STEP: :: ', val);
-    if (val.correct === true) {
-      // do sfx and van animation
-      // this.showBoard = true;
+    this.showDisclaimer = false;
+    if (val.nextStep === 'intro') {
+      // go to start screen and reset
+      this.resetIntro();
+    } else if (val.nextStep === 'outro') {
+      this.liveTemplate = this.answerTemplateRef3;
+      // this.getVideoUrl('thankyou');
+      // this.secondClick = true;
+      // this.handleOutro();
+    } else if (val.nextStep === 'goback') {
+      this.showBoard = true;
       this.handleVanAnimation(val);
+      // this.gameInd = this.gameInd - 1;
     } else {
-      this.showAnswer = false;
+      if (val.correct === true) {
+        console.log("CORRECT ANSWER");
+        // do sfx and van animation
+        // this.showBoard = true;
+        this.handleVanAnimation(val);
+        
+      } else {
+        this.showAnswer = false;
+      }
     }
+  }
+
+  public handleOutro(val) {
+    console.log('handle outro');
+    // video answer screen and then go to main menu
+    this.getAnswerHeader('');
+    this.getVideoCaption('Well, thank you very much!');
+    this.getVideoUrl('thankyou');
+    // videoName: 'thankyou',
+    // caption: "Well, thank you very much!",
   }
 
   public handleVanAnimation(val) {
@@ -224,10 +260,12 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         this.gameInd++;
         this.showBoard = false;
         this.showAnswer = false;
+        if (val.nextStep === 'goback') {
+          this.gameInd = this.gameInd - 2;
+        }
       }, 5000);
     })
 
-    
     // console.log("van state1 ::: ", this.vanstate);
     // this.waitTime(3000);
     // console.log("van state2 ::: ", this.vanstate);
@@ -235,13 +273,28 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     // console.log("van state3 ::: ", this.vanstate);
   }
 
+  public handleUnderline() {
+    console.log('UNDERLINE =======================');
+    let element = this.elementRef.nativeElement.querySelector('.underlineItem');
+    element.setAttribute('style', 'color: green; background: red');
+    // let foo = document.querySelector(".underlineItem");
+    // foo.style.backgroundColor = 'yellow';
+  }
+
   // continue to answer or next step
-  public handleQuestionContinue() {
-    // console.log('NEXT STEP: ', val);
+  public handleQuestionContinue(val) {
+    let answerVal = val.answers[0];
+    console.log('QQQQQ NEXT STEP: ', val, ' :: ', answerVal);
+
     // this.gameInd = 0;
-    this.liveTemplate = this.answerTemplateRef1;
-    this.showAnswer = true;
-    this.answerIndex = 0;
+    if (answerVal.nextStep === 'gotgas') {
+      this.answerIndex = 0;
+      this.handleVanAnimation(answerVal);
+    } else {
+      this.liveTemplate = this.answerTemplateRef1;
+      this.showAnswer = true;
+      this.answerIndex = 0;
+    }
   }
 
   // back to main menu
@@ -252,6 +305,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // video url
   public getVideoUrl(val) {
+    console.log("VIDEO ::: ", val);
     // this.stateManagerService.stopLoop();
     // this.getSlayer = true;
     // this.toggleVideoPlayer = true;
@@ -280,7 +334,15 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
     }
 
-    return 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=2&enablejsapi=1';
+    return 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=0&enablejsapi=1';
+  }
+
+  public getAnswerHeader(val): string {
+    return val;
+  }
+
+  public getVideoCaption(val): string {
+    return val;
   }
 
   // test functions

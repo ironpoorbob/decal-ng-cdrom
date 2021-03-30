@@ -12,16 +12,19 @@ export const gamedata = [
       {
         answer: "No one in your band or for that matter anyone you know has a AAA card. <br><br>Start again.",
         correct: false,
-        nextStep: 'intro'
+        nextStep: 'intro',
+        wide: false
       },
       {
         answer: "Yeah right. If you picked this one your day job is too good. Give up and get a promotion. Quit this game and sell it to your little brother or sister.",
         correct: false,
-        nextStep: 'outro'
+        nextStep: 'outro',
+        wide: false
       },
       {
         answer: "You’re off to a good start! Move ahead one square.",
         correct: true,
+        sound: "",
         startXpos: 40,
         startYpos: 50,
         xMove: 95,
@@ -43,7 +46,7 @@ export const gamedata = [
         correct: true,
         startXpos: 135,
         startYpos: 50,
-        xMove: 40,
+        xMove: 60,
         yMove: 55
       }
     ]
@@ -54,20 +57,20 @@ export const gamedata = [
     questionSubheadline: "One hour into the trip everyone’s already exhausted their conversation storage tanks. Boredom has begun! What do you do?",
     questions: [
       {question: "a) Pull out your book of 1001 elephant jokes."},
-      {question: "b) Take the time to gather the other members and have<br> discussion on how to resolve the band’s personality conflicts and to start concentrating more on organizing the business end of things."},
+      {question: "b) Take the time to gather the other members and have discussion on how to resolve the band’s personality conflicts and to start concentrating more on organizing the business end of things."},
       {question: "c) Start farting."},
     ],
     answers: [
       {
-        answer: "While actually not a bad idea, the other members of the band will proceed to inflict bodily harm on you in order to get rid of their own intense boredom.",
+        answer: "While actually not a bad idea, the other members of the band will proceed to inflict bodily harm on you in order to get rid of their own intense boredom. <br><br> Try again.",
         correct: false
       },
       {
-        answer: "Yeah Right. (see question 1, answer b) How about the business end of this!",
+        answer: "Yeah Right. (see question 1, answer b) How about the business end of this! <br><br> Try again.",
         correct: false  
       },
       {
-        answer: "No one knows why, but bands just do this.<br> Yes, even girl bands.<br> Move ahead one square.",
+        answer: "No one knows why, but bands just do this. Yes, even girl bands.<br><br> Move ahead one square.",
         correct: true,
         startXpos: 190,
         startYpos: 90,
@@ -79,23 +82,29 @@ export const gamedata = [
   {
     id: '4',
     headline: "Wrong Turn!",
-    questionSubheadline: "You forget to bring a map and the guy who said<br> he knew directions fell asleep long ago. Do you...",
+    questionSubheadline: "You forget to bring a map and the guy who said he knew directions fell asleep long ago. Do you...",
     questions: [
-      {question: "a) decide that you inherited your father’s good sense of direction<br> and try to “wing it”."},
-      {question: "b) totally freak and start yelling at everyone that they are<br> losers and that _______ (insert more popular local band here) wanted you in their band."},
+      {question: "a) decide that you inherited your father’s good sense of direction and try to “wing it”."},
+      {question: "b) totally freak and start yelling at everyone that they are losers and that<span class='underlineItem'>_______</span> (insert more popular local band here) wanted you in their band."},
       {question: "c) stop and get beer."},
     ],
     answers: [
       {
-        answer: "Not a bad idea and certainly takes the least<br> effort (always a plus). Possibly dangerous when<br> everyone wakes up in___________ (insert your least<br> favorite nowhere town here).",
+        answer: "Not a bad idea and certainly takes the least effort (always a plus). Possibly dangerous when everyone wakes up in <span class='underlineItem'>_______</span> (insert your least favorite nowhere town here). <br><br> Try again.",
         correct: false
       },
       {
-        answer: "Although tempting, it’s much too early in the<br> trip to display this sort of aggression. <br> Move back one space.",
-        correct: false
+        answer: "Although tempting, it’s much too early in the trip to display this sort of aggression. <br><br> Move back one space.",
+        correct: false,
+        nextStep: 'goback',
+        startXpos: 225,
+        startYpos: 155,
+        xMove: -35,
+        yMove: -70
       },
       {
-        answer: "Now you’re getting the hang of this!<br> Your band members will love you and since<br> you’re getting a good buzz going, who cares<br> where you are.<br> Move ahead one space. ",
+        answer: "Now you’re getting the hang of this!<br> Your band members will love you and since you’re getting a good buzz going, who cares where you are.<br><br> Move ahead one space. ",
+        disclaimer: true,
         correct: true,
         startXpos: 225,
         startYpos: 155,
@@ -107,29 +116,65 @@ export const gamedata = [
   {
     id: '5',
     headline: "Need gas.",
-    questionSubheadline: "You’ve been drinking beer for seven hours. Believe<br> me you’ve got gas (see question 3, answer c). Keep moving, but collect gas money anyway.",
-    questions: []
+    questionSubheadline: "You’ve been drinking beer for seven hours. Believe me you’ve got gas (see question 3, answer c). Keep moving, but collect gas money anyway.",
+    questions: [],
+    answers: [
+      {
+        correct: true,
+        nextStep: 'gotgas',
+        startXpos: 295,
+        startYpos: 170,
+        xMove: 80,
+        yMove: 15
+      }
+    ]
   },
   {
     id: '6',
     headline: "No show!",
-    questionSubheadline: "After 16 hours of driving you arrive at the club for<br> your first show and… they fired their guy who booked<br> your show. The new booker refuses to honor the old<br> shows because she/he has their “thing” they’re trying<br> to do with the club. Do you...",
+    questionSubheadline: "After 16 hours of driving you arrive at the club for your first show and… they fired their guy who booked your show. The new booker refuses to honor the old shows because she/he has their “thing” they’re trying to do with the club. Do you...",
     questions: [
       {question: "a) threaten the new booker?"},
       {question: "b) wave your photocopied “contract” and threaten to sue?"},
-      {question: "c) be nice (much easier if booker is of your preferred sex) and<br> offer to do show in the worst slot for no money -- hey, <br>just some free beer. Grovel. But get the beer."},
+      {question: "c) be nice (much easier if booker is of your preferred sex) and offer to do show in the worst slot for no money -- hey, just some free beer. Grovel. But get the beer."},
     ],
     answers: [
-      {answer: "Very tempting and possibly even worthwhile. <br> Bookers usually deserve every bad thing that<br> happens to them, but hey you still need shows so it’s<br> always better to suck up. Anyway, bouncers are<br> always bigger than band members.<br> Stay cool."},
-      {answer: "Yeah right. (see question 2, answer b)<br> Sue this!"},
-      {answer: "Probably won’t work but definitely worth<br> a try. Move ahead."},
+      {
+        answer: "Very tempting and possibly even worthwhile. Bookers usually deserve every bad thing that happens to them, but hey you still need shows so it’s always better to suck up. Anyway, bouncers are always bigger than band members. Stay cool. <br><br> Try again.",
+        correct: false,
+      },
+      {
+        answer: "Yeah right. (see question 2, answer b)<br> Sue this! <br><br> Try again.",
+        correct: false,
+      },
+      {
+        answer: "Probably won’t work but definitely worth a try. <br><br> Move ahead.",
+        correct: true,
+        startXpos: 375,
+        startYpos: 185,
+        xMove: 55,
+        yMove: 60
+      },
     ]
   },
   {
     id: '7',
     headline: "It worked!",
-    questionSubheadline: "You played a great show to an empty house.<br> Unfortunately there was this one guy there…  <br><br>the <em>PsychoFan!</em> He hangs out alone at bad clubs and has no<br> interests. But your band has changed his life.<br> Your band is his new hobby. He wants to ride with you in your van for the rest of the tour.<br> Should you let him???? Yes?",
-    questions: []
+    questionSubheadline: "You played a great show to an empty house. Unfortunately there was this one guy there...  <br>the <em>PsychoFan!</em> <br><br>He hangs out alone at bad clubs and has no interests. But your band has changed his life. Your band is his new hobby. He wants to ride with you in your van for the rest of the tour.<br><br> Should you let him???? Yes?",
+    questions: [],
+    answers: [
+      {
+        alignment: "center",
+        answer: "Psycho Fan!",
+        caption: "aaaah!",
+        videoName: "psycho",
+        correct: true,
+        startXpos: 430,
+        startYpos: 245,
+        xMove: 50,
+        yMove: 50
+      }
+    ]
   },
   {
     id: '8',
