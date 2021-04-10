@@ -4,7 +4,7 @@
     <div class="row justify-content-center board" *ngIf="showBoard">
       <div class="col col-lg-12 bgimage" [style.backgroundImage]="'url('+ boardImgPath +')'">
         <div class="van" 
-          *ngIf="showVan"
+          *ngIf="showVan && !showVan2"
           [@moveVan]="{value : vanstate, 
             params: {
               xPos: gamedata[gameInd].answers[answerIndex].xMove, 
@@ -13,6 +13,16 @@
               prevY: gamedata[gameInd].answers[answerIndex].startYpos}}"
           [style.backgroundImage]="'url('+ vanImgPath +')'"
           ></div>
+        <div class="van"
+          *ngIf="showVan2"
+          [@moveVan]="{value : vanstate, 
+            params: {
+              xPos: 70, 
+              yPos: 230, 
+              prevX: 575, 
+              prevY: 280}}"
+          [style.backgroundImage]="'url('+ vanCrashImgPath +')'"
+        ></div>
         <div class="boardTitle">
           <span class="the">the</span>
           <span class="decal">DECAL</span>
@@ -74,7 +84,10 @@
       </div>
     </div>
     <div class="row controls">
-      <div class="col offset-lg-4 col-lg-2">
+      <div class="col offset-lg-2 col-lg-2">
+        <button class="prev-button small" (click)="handleIndexJumpClick(7)">JUMP</button>
+      </div>
+      <div class="col col-lg-2">
         <button class="prev-button small" (click)="handleAnimationStartClick()">START</button>
       </div>
       <div class="col col-lg-2">
@@ -93,7 +106,9 @@
 
 
 <ng-template #answerTemplateRef1>
-  <div class="row headline-row">
+  <div class="row headline-row"
+    *ngIf="gamedata[gameInd].answers[answerIndex].answer !== ''"
+  >
     <div class="col"
       [ngClass]="gamedata[gameInd].answers[answerIndex].wide ? 'col-lg-12' : 'offset-lg-1 col-lg-10'"
       [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment === 'center'"
@@ -170,6 +185,38 @@
   <div class="row justify-content-center answer-controls">
     <div class="col col-lg-auto">
       <button class="back-button" (click)="handleMenuClick()">CONTINUE</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #answerTemplateRef4>
+  <div class="row headline-row"
+    *ngIf="t4Headline !== ''"
+  >
+    <div class="col"
+      [ngClass]="gamedata[gameInd].answers[answerIndex].wide ? 'col-lg-12' : 'offset-lg-1 col-lg-10'"
+      [class.centerAlign]="gamedata[gameInd].answers[answerIndex].t4alignment === 'center'"
+      [class.topPadding]="!gamedata[gameInd].answers[answerIndex].videoName">
+      <p [innerHTML]="getAnswerHeader(gamedata[gameInd].answers[answerIndex].answer)"></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col col-lg-auto">
+      <iframe width="640" height="390" 
+        [src]="getVideoUrl(gamedata[gameInd].answers[answerIndex].t4VideoName) | urlSanitize"
+        frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div class="row" *ngIf="t4Subheadline !== ''">
+    <div class="col col-lg-12"
+    [class.centerAlign]="gamedata[gameInd].answers[answerIndex].t4alignment">
+      <p class="caption" [innerHTML]="t4Subheadline"></p>
+      <p>template 4</p>
+    </div>
+  </div>
+  <div class="row justify-content-center answer-controls">
+    <div class="col col-lg-auto">
+      <button class="back-button" (click)="handleT4Click(gamedata[gameInd].answers[answerIndex])">CONTINUE</button>
     </div>
   </div>
 </ng-template>
