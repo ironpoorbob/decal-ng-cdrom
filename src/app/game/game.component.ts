@@ -45,6 +45,11 @@ import {
   ]
 })
 
+/* 
+ xpos is translate x and ypos is translate y
+ prevX and prevY are the starting x and y coordinates
+*/
+
 export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
@@ -53,6 +58,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   public showAnswer: boolean = true;
   public showVideo: boolean = false;
   public showVan: boolean = true;
+  public showVan2: boolean = false;
   public startScreen: boolean = true; // only for continue button at start
   public showDisclaimer: boolean = false;
   // public secondClick: boolean = false; // second click in answer screen
@@ -66,9 +72,16 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   public boardImgPath: string = '';
   public vanImgPath: string = '';
   public vanGlowImgPath: string = '';
+  public vanCrashImgPath: string = '';
 
   public audio: any;
   public videoUrl: string = '';
+
+  public t4Headline: string = '';
+  public t4Subheadline: string = '';
+  public t4VideoName: string = '';
+
+  public isPullVanOver: boolean = false;
 
   // test vars
   public templateFlip: boolean = true;
@@ -76,6 +89,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('answerTemplateRef1') answerTemplateRef1: TemplateRef<any>;
   @ViewChild('answerTemplateRef2') answerTemplateRef2: TemplateRef<any>;
   @ViewChild('answerTemplateRef3') answerTemplateRef3: TemplateRef<any>;
+  @ViewChild('answerTemplateRef4') answerTemplateRef4: TemplateRef<any>;
   public liveTemplate: TemplateRef<any>;
 
   constructor(
@@ -100,6 +114,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.boardImgPath = this.dataObj.baseUrl + 'assets/images/game_board.jpg';
     this.vanImgPath = this.dataObj.baseUrl + 'assets/images/the-van.png';
     this.vanGlowImgPath = this.dataObj.baseUrl + 'assets/images/the-van-glow.png';
+    this.vanCrashImgPath = this.dataObj.baseUrl + 'assets/images/the-van-crash.png';
   }
 
   public ngAfterViewInit():void {
@@ -112,57 +127,12 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 
+  /////////////////////////////////
   /// utility functions
 
-  public handleShowBoard() {
-    this.showBoard = true;
-  }
-
-  public handleHideBoard() {
-    this.showBoard = false;
-  }
-
-  public getShowVideo(val) {
-    this.showVideo = val.videoName ? true : false;
-    // console.log('video name: ', this.showVideo);
-    return this.showVideo;
-  }
-
-  public getTemplate() {
-    // either show start screen or answer screen
-    return this.liveTemplate;
-  }
-
-  // pause 
-  public waitTime(wait) {
-    console.log('start waiting');
-    new Promise((res) => {
-      setTimeout(() => {
-        console.log('done waiting');
-      }, wait);
-    })
-  }
-
-  // reset to Board start screen
-  public resetStart() {
-    this.showBoard = true;
-    this.startScreen = true;
-    this.gameInd = 0;
-    this.answerIndex = 0;
-  }
-
-  // reset to Start Here screen
-  public resetIntro() {
-    this.showBoard = false;
-    this.showAnswer = true;
-    this.startScreen = false; // continue button show/hide
-    this.liveTemplate = this.answerTemplateRef2;
-    this.gameInd = 0;
-    this.answerIndex = 0;
-  }
-
-  // controls
-
+  /////////////////////////////////
+  // board functions
+  /////////////////////////////////
 
   // start screen continue button click - board and van intro
   // advance to intro screen
@@ -175,16 +145,68 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.resetIntro();
   }
 
-  public handleGameStartClick(): void {
-    // show question 1
-    // stop music loop
-    this.showAnswer = false;
-    this.liveTemplate = this.answerTemplateRef1;
+  // reset to Start Here screen
+  public resetIntro() {
+    this.showBoard = false;
+    this.showAnswer = true;
+    this.startScreen = false; // continue button show/hide
+    this.liveTemplate = this.answerTemplateRef2;
+    this.gameInd = 0;
+    this.answerIndex = 0;
   }
 
+  public handleVanAnimation(val) {
+    // set positions of van
+    this.showBoard = true;
+
+    // pause and let SFX load
+    // this.vanstate = 'start';
+    // this.waitTime(300);
+    // this.vanstate = (this.vanstate === 'start') ? 'done' : 'start';
+    console.log('ANIMATION :: VAL::: ', val, ' : answer index :: ', this.answerIndex);
+    console.log('ANIMATION :: GAME IDX::: ', this.gameInd);
+    this.vanstate = 'start';
+    new Promise((res) => {
+      setTimeout(() => {
+        console.log('done waiting');
+        this.vanstate = 'done';
+      }, 1000);
+    })
+
+    new Promise((res) => {
+      setTimeout(() => {
+        console.log('done waiting');
+        // this.vanstate = 'done';
+        if (val.nextStep === 'pullover' && this.isPullVanOver) {
+          // question 9: bad food - gotta pull van over
+          this.showAnswer = true;
+          this.showBoard = false;
+          this.isPullVanOver = true; // did it once already
+          // this.showVan2 = false;
+        } else if (val.nextStep === 'goback') {
+          // question 4: go back one step
+          this.gameInd = this.gameInd - 1;
+          console.log("GO BACK::: GAME IDX:: ", this.gameInd);
+          this.showBoard = false;
+          this.showAnswer = false;
+        } else {
+          console.log('MAIN ANIMATION PATH');
+          this.gameInd++;
+          this.showBoard = false;
+          this.showAnswer = false;
+        }
+      }, 5000);
+    })
+  }
+
+  /////////////////////////////////
+  // question functions
+  /////////////////////////////////
+
+  // on click go to next screen (answers or next step)
   public onCheckBoxChange(event, idx, val) {
     // this.showBoard = true;
-    console.log('checkbox val disclaimer: ', val.disclaimer);
+    // console.log('checkbox val: ', val);
     this.showDisclaimer = val.disclaimer ? true : false;
     this.showAnswer = true;
     console.log('checkbox click, ', idx, ' : ', event, ' :::: ', val);
@@ -193,15 +215,53 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       this.audio = new Audio(this.dataObj.baseUrl + "assets/audio/buzzer.mp3");
       this.audio.play();
       console.log("WRONG!! ::: ", this.audio);
+    } else if (val.nextStep === "pullover") {
+      // this.handlePullOver(val);
+      this.showVan2 = true;
+      this.handleVanAnimation(val);
     }
   }
+
+  // continue to answer or next step 
+  // this is when no check boxes and need to advance to video or next step
+  public handleQuestionContinue(val) {
+    let answerVal = val.answers[0];
+    console.log('QQQQQ NEXT STEP: ', val, ' :: ', answerVal);
+
+    // this.gameInd = 0;
+    if (answerVal.nextStep === 'gotgas') {
+      // no video - just goes right to board/van animation
+      this.answerIndex = 0;
+      this.handleVanAnimation(answerVal);
+    } else {
+      this.liveTemplate = this.answerTemplateRef1;
+      this.showAnswer = true;
+      this.answerIndex = 0;
+    }
+  }
+
+  public getTemplate() {
+    // show selected template
+    // template1 - original answers
+    // template2 - start screen
+    // template3 - outro screen
+    // template4 - alt answer screen
+    return this.liveTemplate;
+  }
+
+
+  /////////////////////////////////
+  // answers1 - template1
+  /////////////////////////////////
 
   // continue button click on answer screen
   public handleAnswerClick(val) {
     console.log('NEXT STEP: :: ', val);
     this.showDisclaimer = false;
+
     if (val.nextStep === 'intro') {
       // go to start screen and reset
+      console.log('GO TO INTRO');
       this.resetIntro();
     } else if (val.nextStep === 'outro') {
       this.liveTemplate = this.answerTemplateRef3;
@@ -212,6 +272,15 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       this.showBoard = true;
       this.handleVanAnimation(val);
       // this.gameInd = this.gameInd - 1;
+    } else if (val.nextStep === 'psycho') {
+      console.log("PSYCHO FAN AGAIN");
+      this.handlePsychoFanMom();
+    } else if (val.nextStep === 'pullover') {
+      console.log("Pull van over");
+      this.showVan2 = false;
+      this.handleVanAnimation(val);
+      // this.gameInd++;
+      // this.handlePullOver(val);
     } else {
       if (val.correct === true) {
         console.log("CORRECT ANSWER");
@@ -225,82 +294,19 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  public handleOutro(val) {
-    console.log('handle outro');
-    // video answer screen and then go to main menu
-    this.getAnswerHeader('');
-    this.getVideoCaption('Well, thank you very much!');
-    this.getVideoUrl('thankyou');
-    // videoName: 'thankyou',
-    // caption: "Well, thank you very much!",
+  public getAnswerHeader(val): string {
+    return val;
   }
 
-  public handleVanAnimation(val) {
-    // set positions of van
-
-    // show board
-    this.showBoard = true;
-
-    // pause and let SFX load
-    // this.vanstate = 'start';
-    // this.waitTime(300);
-    // this.vanstate = (this.vanstate === 'start') ? 'done' : 'start';
-    this.vanstate = 'start';
-    new Promise((res) => {
-      setTimeout(() => {
-        console.log('done waiting');
-        this.vanstate = 'done';
-      }, 1000);
-    })
-
-    new Promise((res) => {
-      setTimeout(() => {
-        console.log('done waiting');
-        // this.vanstate = 'done';
-        this.gameInd++;
-        this.showBoard = false;
-        this.showAnswer = false;
-        if (val.nextStep === 'goback') {
-          this.gameInd = this.gameInd - 2;
-        }
-      }, 5000);
-    })
-
-    // console.log("van state1 ::: ", this.vanstate);
-    // this.waitTime(3000);
-    // console.log("van state2 ::: ", this.vanstate);
-    // this.vanstate = 'done';
-    // console.log("van state3 ::: ", this.vanstate);
+  public getVideoCaption(val): string {
+    return val;
   }
 
-  public handleUnderline() {
-    console.log('UNDERLINE =======================');
-    let element = this.elementRef.nativeElement.querySelector('.underlineItem');
-    element.setAttribute('style', 'color: green; background: red');
-    // let foo = document.querySelector(".underlineItem");
-    // foo.style.backgroundColor = 'yellow';
-  }
-
-  // continue to answer or next step
-  public handleQuestionContinue(val) {
-    let answerVal = val.answers[0];
-    console.log('QQQQQ NEXT STEP: ', val, ' :: ', answerVal);
-
-    // this.gameInd = 0;
-    if (answerVal.nextStep === 'gotgas') {
-      this.answerIndex = 0;
-      this.handleVanAnimation(answerVal);
-    } else {
-      this.liveTemplate = this.answerTemplateRef1;
-      this.showAnswer = true;
-      this.answerIndex = 0;
-    }
-  }
-
-  // back to main menu
-  public handleMenuClick(): void {
-    this.router.navigateByUrl('/home');
-    this.stateManagerService.stopLoop();
+  // show/hide video div
+  public getShowVideo(val) {
+    this.showVideo = val.videoName ? true : false;
+    // console.log('video name: ', this.showVideo);
+    return this.showVideo;
   }
 
   // video url
@@ -337,15 +343,125 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     return 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=0&enablejsapi=1';
   }
 
-  public getAnswerHeader(val): string {
-    return val;
+  /////////////////////////////////
+  // answers2 - template2 - start/intro screen
+  /////////////////////////////////
+
+  public handleGameStartClick(): void {
+    // show question 1
+    // stop music loop
+    this.stateManagerService.stopLoop();
+    this.showAnswer = false;
+    this.liveTemplate = this.answerTemplateRef1;
   }
 
-  public getVideoCaption(val): string {
-    return val;
+  /////////////////////////////////
+  // answers3 - template3 - outro screen
+  /////////////////////////////////
+
+  /////////////////////////////////
+  // answers4 - template4 - answers alt - psycho fan video
+  /////////////////////////////////
+
+  public handlePsychoFanMom() {
+    // this.getVideoUrl('psycho')
+    this.t4Headline = '';
+    this.t4Subheadline = 'aaaah!';
+    this.t4VideoName = 'psycho';
+    this.liveTemplate = this.answerTemplateRef4;
   }
+
+  public handleT4Click(val) {
+    this.showBoard = true;
+    this.handleVanAnimation(val);
+  }
+
+  /////////////////////////////////
+  // controls
+  /////////////////////////////////
+
+  // back to main menu - fists
+  public handleMenuClick(): void {
+    this.router.navigateByUrl('/home');
+    this.stateManagerService.stopLoop();
+  }
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  // public handleOutro(val) {
+  //   console.log('handle outro');
+  //   // video answer screen and then go to main menu
+  //   this.getAnswerHeader('');
+  //   this.getVideoCaption('Well, thank you very much!');
+  //   this.getVideoUrl('thankyou');
+  //   // videoName: 'thankyou',
+  //   // caption: "Well, thank you very much!",
+  // }
+
+  // public handlePullOver(val) {
+  //   this.showVan2 = true;
+  //   this.handleVanAnimation(val);
+  // }
+
+ 
+  // reset to Board start screen
+  // public resetStart() {
+  //   this.showBoard = true;
+  //   this.startScreen = true;
+  //   this.gameInd = 0;
+  //   this.answerIndex = 0;
+  // }
+
+  // pause 
+  // public waitTime(wait) {
+  //   console.log('start waiting');
+  //   new Promise((res) => {
+  //     setTimeout(() => {
+  //       console.log('done waiting');
+  //     }, wait);
+  //   })
+  // }
+
+  // public handleShowBoard() {
+  //   this.showBoard = true;
+  // }
+
+  // public handleHideBoard() {
+  //   this.showBoard = false;
+  // }
+
+  
+  
+
+  
+
+  
 
   // test functions
+
+  public handleIndexJumpClick(val) {
+    this.gameInd = val;
+  }
 
   public handleAnimationStartClick() {
     this.vanstate = (this.vanstate === 'start') ? 'done' : 'start';
