@@ -12,8 +12,8 @@ export const gamedata = [
       {
         answer: "No one in your band or for that matter anyone you know has a AAA card. <br><br>Start again.",
         correct: false,
-        nextStep: 'intro',
-        wide: false
+        wide: false,
+        nextStep: 'intro'
       },
       {
         answer: "Yeah right. If you picked this one your day job is too good. Give up and get a promotion. Quit this game and sell it to your little brother or sister.",
@@ -24,7 +24,7 @@ export const gamedata = [
       {
         answer: "You’re off to a good start! Move ahead one square.",
         correct: true,
-        sound: "",
+        sound: "car-start",
         startXpos: 40,
         startYpos: 50,
         xMove: 95,
@@ -44,6 +44,7 @@ export const gamedata = [
         caption: "There’s no helping you!",
         videoName: "closeup",
         correct: true,
+        sound: "car-drive1",
         startXpos: 135,
         startYpos: 50,
         xMove: 60,
@@ -72,6 +73,7 @@ export const gamedata = [
       {
         answer: "No one knows why, but bands just do this. Yes, even girl bands.<br><br> Move ahead one square.",
         correct: true,
+        sound: "car-drive2",
         startXpos: 190,
         startYpos: 90,
         xMove: 35,
@@ -90,12 +92,13 @@ export const gamedata = [
     ],
     answers: [
       {
-        answer: "Not a bad idea and certainly takes the least effort (always a plus). Possibly dangerous when everyone wakes up in<span class='underlineItem'>_______</span> (insert your least favorite nowhere town here). <br><br> Try again.",
+        answer: "Not a bad idea and certainly takes the least effort (always a plus). Possibly dangerous when everyone wakes up in<span class='underlineItem'>______________</span> (insert your least favorite nowhere town here). <br><br> Try again.",
         correct: false
       },
       {
         answer: "Although tempting, it’s much too early in the trip to display this sort of aggression. <br><br> Move back one space.",
         correct: false,
+        sound: "car-drive1",
         nextStep: 'goback',
         startXpos: 225,
         startYpos: 155,
@@ -106,6 +109,7 @@ export const gamedata = [
         answer: "Now you’re getting the hang of this!<br> Your band members will love you and since you’re getting a good buzz going, who cares where you are.<br><br> Move ahead one space. ",
         disclaimer: true,
         correct: true,
+        sound: "car-skid-crash",
         startXpos: 225,
         startYpos: 155,
         xMove: 70,
@@ -121,6 +125,7 @@ export const gamedata = [
     answers: [
       {
         correct: true,
+        sound: "car-drive2",
         nextStep: 'gotgas',
         startXpos: 295,
         startYpos: 170,
@@ -151,6 +156,7 @@ export const gamedata = [
       {
         answer: "Probably won’t work but definitely worth a try. <br><br> Move ahead.",
         correct: true,
+        sound: "car-drive2",
         startXpos: 375,
         startYpos: 185,
         xMove: 55,
@@ -166,9 +172,10 @@ export const gamedata = [
     answers: [
       {
         alignment: "center",
-        answer: "",
-        caption: "aaaah!",
+        answer: "PsychoFan!",
+        caption: "“aaaah!”",
         videoName: "psycho",
+        sound: "car-drive2",
         correct: true,
         startXpos: 430,
         startYpos: 245,
@@ -189,8 +196,9 @@ export const gamedata = [
     ],
     answers: [
       {
-        answer: "Duh. But what about your other band members???? Borrow some “protection” from them and then, who cares where they sleep!<br><br> Move ahead.",
+        answer: "Duh. But what about your other band members???? Borrow some “protection” from them and then, who cares where <em>they</em> sleep!<br><br> Move ahead.",
         correct: true,
+        sound: "car-drive2",
         startXpos: 480,
         startYpos: 290,
         xMove: 95,
@@ -210,6 +218,7 @@ export const gamedata = [
         t4alignment: "center",
         nextStep: 'psycho',
         t4VideoName: 'psycho',
+        sound: "car-drive2",
         startXpos: 480,
         startYpos: 290,
         xMove: 95,
@@ -221,17 +230,18 @@ export const gamedata = [
   {
     id: '9',
     headline: "On the road again...",
-    questionSubheadline: "but everyone had that bad mexican food last<br> night. It’s 50 miles to the next rest stop. The<br> road is really winding. And bumpy.<br> Uuuuuuuhhhhhhhh. What are you going to do? ",
+    questionSubheadline: "but everyone had that bad mexican food last night. It’s 50 miles to the next rest stop. The road is really winding. And bumpy.<br> Uuuuuuuhhhhhhhh.<br> What are you going to do? ",
     questions: [
       {question: "a) Forget about it and go back to reading<br> novelizations of Sylvester Stallone movies."},
       {question: "b) Whine."},
-      {question: "c) Threaten the drive with bodily harm if<br> he/she doesn’t pull off to the side of the road<br> now. Now! NOW!"},
+      {question: "c) Threaten the driver with bodily harm if he/she doesn’t pull off to the side of the road<br> now. Now! NOW!"},
     ],
     answers: [
       {
         alignment: "center",
         answer: "",
-        caption: "Come on Rocky!",
+        caption: "“Come on Rocky!”",
+        sound: "car-drive2",
         correct: true,
         videoName: "rocky",
         startXpos: 575,
@@ -242,7 +252,7 @@ export const gamedata = [
       {
         answer: "Sorry, you’ve just been thrown out of the band - who needs a lead singer anyway?",
         correct: false,
-        nextStep: 'outro',
+        nextStep: 'whine',
         wide: false
       },
       {
@@ -250,6 +260,7 @@ export const gamedata = [
         alignment: "center",
         correct: true,
         nextStep: 'pullover',
+        sound: "car-drive2",
         startXpos: 575,
         startYpos: 280,
         xMove: 65,
@@ -261,9 +272,20 @@ export const gamedata = [
     id: '10',
     headline: "You’ve made it to the club. ",
     questionSubheadline: "You’ve arrived at the big club in town for the centerpiece show of your tour. The show isn’t cancelled. You didn’t get lost. The band didn’t break up in the van. Sound check goes great. You’ve got a $400 guarantee. The local college radio is broadcasting the show live. Major label suit-wearing guys are trying to talk to the cool indie A&R guys who are there to see your band. You play the best show of your life. People help you carry your equipment and don’t steal anything. That model-type asks if you need a place to stay...",
+    wide: false,
     questions: [],
     answers: [
-      {answer: "WAKE UP!!! You fell asleep while driving the van.<br> Luckily PsychoFan wakes you up and you all survive.<br> Time to go home."},
+      {
+        answer: "<span class='big-header'>WAKE UP!!!</span> <br><br>You fell asleep while driving the van. Luckily PsychoFan wakes you up and you all survive.<br><br> Time to go home.",
+        nextStep: 'sell',
+        t4alignment: "center",
+        sound: "car-skid-crash",
+        correct: true,
+        startXpos: 640,
+        startYpos: 320,
+        xMove: 85,
+        yMove: 60
+      },
     ]
   }
 ]

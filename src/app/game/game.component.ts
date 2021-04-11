@@ -32,11 +32,11 @@ import {
         opacity: 1
       })),
       transition('start => done', [
-        animate('4s ease-in', keyframes ( [
-          style({ opacity: 1, offset: 0.4 }),
-          style({ transform: 'translate({{xPos}}px, {{yPos}}px)', offset: 0.55 }),
+        animate('3s ease-in', keyframes ( [
+          style({ opacity: 1, offset: 0.3 }),
+          style({ transform: 'translate({{xPos}}px, {{yPos}}px)', offset: 0.45 }),
           // style({ transform: 'translateX(80px)', offset: 0.4 }),
-          style({ transform: 'translate({{xPos}}px, {{yPos}}px)', offset: 0.6 }),
+          style({ transform: 'translate({{xPos}}px, {{yPos}}px)', offset: 0.5 }),
           // style({ transform: 'translateX(0px)',   offset: 0.6 }),
           style({ opacity: 1, offset: 1 })
         ]))
@@ -159,7 +159,15 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     // set positions of van
     this.showBoard = true;
 
-    // pause and let SFX load
+    // pause? and let SFX load
+
+    // play car skid for question 9: pull over
+    if (val.nextStep === 'pullover' && !this.isPullVanOver) {
+      this.playSfx('car-skid');
+    } else {
+      this.playSfx(val.sound);
+    }
+
     // this.vanstate = 'start';
     // this.waitTime(300);
     // this.vanstate = (this.vanstate === 'start') ? 'done' : 'start';
@@ -173,11 +181,21 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       }, 1000);
     })
 
+    // quesiton 10: when van finishes and crashes, switch to crashed van img
+    new Promise((res) => {
+      setTimeout(() => {
+        if (val.nextStep === 'sell') {
+          this.vanImgPath = this.dataObj.baseUrl + 'assets/images/the-van-crash.png';
+        }
+      }, 3000);
+    })
+    
     new Promise((res) => {
       setTimeout(() => {
         console.log('done waiting');
         // this.vanstate = 'done';
-        if (val.nextStep === 'pullover' && this.isPullVanOver) {
+        if (val.nextStep === 'pullover' && !this.isPullVanOver) {
+          console.log('PULLOVER!!! ::: ', this.isPullVanOver);
           // question 9: bad food - gotta pull van over
           this.showAnswer = true;
           this.showBoard = false;
@@ -189,13 +207,55 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log("GO BACK::: GAME IDX:: ", this.gameInd);
           this.showBoard = false;
           this.showAnswer = false;
+        } else if (val.nextStep === 'sell') {
+          this.showAnswer = true;
+          this.showBoard = false;
+          // this.showVan2 = true;
+          this.handleSellYourGear();
         } else {
-          console.log('MAIN ANIMATION PATH');
           this.gameInd++;
+          console.log('MAIN ANIMATION PATH::: gameInd ::: ', this.gameInd);
           this.showBoard = false;
           this.showAnswer = false;
         }
-      }, 5000);
+      }, 4000);
+    })
+  }
+
+  public playSfx(val) {
+    console.log('play sfx val ::: ', val);
+    
+    let sfxVal = '';
+    let pauseTime = 1000;
+    switch(val) {
+      case 'car-start':
+        sfxVal = 'car-start.mp3';
+        break;
+      case 'car-drive1':
+        sfxVal = 'car-drive1.mp3';
+        break;
+      case 'car-drive2':
+        sfxVal = 'car-drive2.mp3';
+        break;
+      case 'car-skid':
+        sfxVal = 'car-skid.mp3';
+        pauseTime = 2000;
+        break;
+      case 'car-skid-crash':
+        sfxVal = 'car-skid-crash.mp3';
+        pauseTime = 2000;
+        break;
+      default:
+        sfxVal = 'car-start.mp3';
+        break;
+    }
+    let audioString = this.dataObj.baseUrl + "assets/audio/" + sfxVal;
+    this.audio = new Audio(audioString);
+    new Promise((res) => {
+      setTimeout(() => {
+        console.log('play audio');
+        this.audio.play();
+      }, pauseTime);
     })
   }
 
@@ -217,7 +277,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log("WRONG!! ::: ", this.audio);
     } else if (val.nextStep === "pullover") {
       // this.handlePullOver(val);
-      this.showVan2 = true;
+      // switch to alt van for pullover animation
+      this.showVan2 = true; // TODO: switch image to van 1 for prod
       this.handleVanAnimation(val);
     }
   }
@@ -263,7 +324,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       // go to start screen and reset
       console.log('GO TO INTRO');
       this.resetIntro();
-    } else if (val.nextStep === 'outro') {
+    } else if (val.nextStep === 'outro' || val.nextStep === 'whine') {
       this.liveTemplate = this.answerTemplateRef3;
       // this.getVideoUrl('thankyou');
       // this.secondClick = true;
@@ -277,7 +338,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       this.handlePsychoFanMom();
     } else if (val.nextStep === 'pullover') {
       console.log("Pull van over");
-      this.showVan2 = false;
+      this.showVan2 = false; // switch back to original van animation div
       this.handleVanAnimation(val);
       // this.gameInd++;
       // this.handlePullOver(val);
@@ -336,8 +397,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       default:
         // elvis - thank you very much
-        videoVal = 'fj-buH5fhAw';
-        break;
+        videoVal = '';
+        return videoVal;
+        // break;
     }
 
     return 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=0&enablejsapi=1';
@@ -352,6 +414,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     // stop music loop
     this.stateManagerService.stopLoop();
     this.showAnswer = false;
+    this.showVan2 = false; // make sure van1 is showing
     this.liveTemplate = this.answerTemplateRef1;
   }
 
@@ -365,15 +428,28 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public handlePsychoFanMom() {
     // this.getVideoUrl('psycho')
-    this.t4Headline = '';
-    this.t4Subheadline = 'aaaah!';
+    this.t4Headline = 'PsychoFan!';
+    this.t4Subheadline = "“aaaah!”";
     this.t4VideoName = 'psycho';
     this.liveTemplate = this.answerTemplateRef4;
   }
 
   public handleT4Click(val) {
-    this.showBoard = true;
-    this.handleVanAnimation(val);
+    console.log('T4 continue click::: ', val);
+    if (val.nextStep === 'sell') {
+      this.liveTemplate = this.answerTemplateRef3;
+    } else {
+      this.showBoard = true;
+      this.liveTemplate = this.answerTemplateRef1;
+      this.handleVanAnimation(val);
+    }
+  }
+
+  public handleSellYourGear() {
+    this.t4Headline = "Sell your equipment and<br> get out of the music business! <br><br> The End!";
+    this.t4Subheadline = "";
+    // this.t4VideoName = 'psycho';
+    this.liveTemplate = this.answerTemplateRef4;
   }
 
   /////////////////////////////////

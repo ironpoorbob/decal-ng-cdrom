@@ -17,6 +17,13 @@ html, body {
 
   font-family: carbon;
 
+  .controls {
+    margin-bottom: 10px;
+    &.testing {
+      // display: none;
+    }
+  }
+
   .disclaimer {
     font-family: Helvetica !important;
     letter-spacing: 0;
@@ -28,6 +35,9 @@ html, body {
         // font-family: Helvetica !important;
         &.underlineItem {
           font-family: Helvetica !important;
+        }
+        &.big-header {
+          font-size: 48px;
         }
       }
       .disclaimer {
