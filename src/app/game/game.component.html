@@ -13,7 +13,7 @@
               prevY: gamedata[gameInd].answers[answerIndex].startYpos}}"
           [style.backgroundImage]="'url('+ vanImgPath +')'"
           ></div>
-        <div class="van"
+        <div class="van pullover"
           *ngIf="showVan2"
           [@moveVan]="{value : vanstate, 
             params: {
@@ -21,7 +21,7 @@
               yPos: 230, 
               prevX: 575, 
               prevY: 280}}"
-          [style.backgroundImage]="'url('+ vanCrashImgPath +')'"
+          [style.backgroundImage]="'url('+ vanImgPath +')'"
         ></div>
         <div class="boardTitle">
           <span class="the">the</span>
@@ -38,13 +38,17 @@
 
             <div class="questions">
               <form >
-              <div class="row headline">
+              <div class="row headline"
+                [class.small]="gamedata[gameInd].id === '10'"
+              >
                 <div class="col col-lg-1"><h2>{{gameInd + 1}}.</h2></div>
                 <div class="col col-lg-11"><h2 [innerHTML]="gamedata[gameInd].headline"></h2>
                 </div>
               </div>
               <div class="row">
-                <div class="col offset-lg-1 col-lg-11"><p class="subheadline" [innerHTML]="gamedata[gameInd].questionSubheadline"></p></div>
+                <div 
+                  [ngClass]="gamedata[gameInd].wide ? 'col-lg-12' : 'offset-lg-1 col-lg-10'"
+                ><p class="subheadline" [innerHTML]="gamedata[gameInd].questionSubheadline"></p></div>
               </div>
               <div class="row question" *ngFor="let questionData of gamedata[gameInd].questions; let idx = index;">
                 <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx, gamedata[gameInd].answers[idx])"><label for="{{'cbG0' + idx}}" class="css-label cb0"></label></div>
@@ -70,11 +74,6 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="showDisclaimer">
-      <div class="col offset-lg-1 col-lg-10">
-        <span class="disclaimer">(Remember kids, this is just a joke. Decal does not support the use of alcohol and the operation of motor vehicles.)</span>
-      </div>
-    </div>
     <div class="row controls">
       <div class="col offset-xl-1 col-lg-3">
         <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
@@ -83,7 +82,7 @@
         <button class="back-button inverse continue" (click)="handleIntroContinueClick()">CONTINUE</button>
       </div>
     </div>
-    <div class="row controls">
+    <div class="row controls testing">
       <div class="col offset-lg-2 col-lg-2">
         <button class="prev-button small" (click)="handleIndexJumpClick(7)">JUMP</button>
       </div>
@@ -103,7 +102,6 @@
     
   </div>
 </div>
-
 
 <ng-template #answerTemplateRef1>
   <div class="row headline-row"
@@ -132,6 +130,11 @@
   <div class="row justify-content-center answer-controls">
     <div class="col col-lg-auto">
       <button class="back-button" (click)="handleAnswerClick(gamedata[gameInd].answers[answerIndex])">CONTINUE</button>
+    </div>
+  </div>
+  <div class="row align-items-end disclaimer-wrapper" *ngIf="showDisclaimer">
+    <div class="col offset-lg-1 col-lg-10">
+      <span class="disclaimer">(Remember kids, this is just a joke. Decal does not support the use of alcohol and the operation of motor vehicles.)</span>
     </div>
   </div>
 </ng-template>
@@ -172,14 +175,14 @@
   <div class="row justify-content-center">
     <div class="col col-lg-auto">
       <iframe width="640" height="390"
-        [src]="getVideoUrl(gamedata[gameInd].answers[answerIndex].videoName) | urlSanitize" 
+        [src]="getVideoUrl('thankyou') | urlSanitize" 
         frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col col-lg-auto"
     [class.centerAlign]="gamedata[gameInd].answers[answerIndex].alignment">
-      <p class="caption">Well, thank you very much!</p>
+      <p class="caption">“Well, thank you very much!”</p>
     </div>
   </div>
   <div class="row justify-content-center answer-controls">
@@ -197,10 +200,12 @@
       [ngClass]="gamedata[gameInd].answers[answerIndex].wide ? 'col-lg-12' : 'offset-lg-1 col-lg-10'"
       [class.centerAlign]="gamedata[gameInd].answers[answerIndex].t4alignment === 'center'"
       [class.topPadding]="!gamedata[gameInd].answers[answerIndex].videoName">
-      <p [innerHTML]="getAnswerHeader(gamedata[gameInd].answers[answerIndex].answer)"></p>
+      <p [innerHTML]="t4Headline"></p>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center"
+    *ngIf="getVideoUrl(gamedata[gameInd].answers[answerIndex].t4VideoName) !== ''"
+    >
     <div class="col col-lg-auto">
       <iframe width="640" height="390" 
         [src]="getVideoUrl(gamedata[gameInd].answers[answerIndex].t4VideoName) | urlSanitize"
@@ -211,7 +216,6 @@
     <div class="col col-lg-12"
     [class.centerAlign]="gamedata[gameInd].answers[answerIndex].t4alignment">
       <p class="caption" [innerHTML]="t4Subheadline"></p>
-      <p>template 4</p>
     </div>
   </div>
   <div class="row justify-content-center answer-controls">

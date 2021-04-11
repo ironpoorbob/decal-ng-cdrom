@@ -61,6 +61,12 @@
         h2 {
           letter-spacing: -4px;
           font-size: 48px;
+          margin-bottom: 20px;
+        }
+        &.small {
+          h2 {
+            font-size: 40px;
+          }
         }
       }
       p {
@@ -143,12 +149,13 @@
   }
 
   .answers {
+    position: relative;
     // padding-top: 40px;
 
     min-height: 600px;
     p {
-      font-size: 28px;
-      letter-spacing: -1.5px;
+      font-size: 30px;
+      letter-spacing: -4.5px;
       line-height: 38px;
     }
     .answer-controls {
@@ -167,8 +174,9 @@
         letter-spacing: -3px;
       }
       p {
-        font-size: 24px;
-        line-height: 30px;
+        font-size: 30px;
+        letter-spacing: -3.5px;
+        line-height: 34px;
       }
       .intro-van {
         height: 200px;
@@ -181,6 +189,13 @@
         background-size: 100% 100%;
       }
     }
+
+    .disclaimer-wrapper {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
   }
 
   .controls {
