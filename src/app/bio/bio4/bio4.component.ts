@@ -33,7 +33,7 @@ export class Bio4Component implements OnInit {
       clickPlay: false
     }
 
-    this.videoUrl = 'https://www.youtube.com/embed/yT_mQ81RlDQ?autoplay=1&rel=0&controls=2&enablejsapi=1'
+    this.videoUrl = 'https://www.youtube-nocookie.com/embed/yT_mQ81RlDQ?autoplay=1&rel=0&controls=2&enablejsapi=1'
 
     this.stateManagerService.setValue('videoObj', this.videoObj);
     // this.videoUrl = 'yT_mQ81RlDQ';
