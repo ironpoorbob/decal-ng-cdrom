@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   { path: 'credits', component: CreditsComponent },
   { path: 'outro', component: OutroComponent },
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: '/intro' },
 ];
 
 @NgModule({
