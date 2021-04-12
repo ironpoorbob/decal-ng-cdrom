@@ -1,3 +1,68 @@
-<p>intro works!</p>
+<div class="container">
+  <div class="intro">
 
-<a href="/home">home</a>
+
+    <div class="row justify-content-center align-items-center" 
+      *ngIf="!showStart"
+    >
+      <div class="col col-lg-auto controls">
+        <p>Click START button to check out the Decals!</p>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center" 
+      *ngIf="!showStart"
+    >
+      <div class="col col-lg-auto controls">
+        <button class="back-button" (click)="handleStartClick()">&nbsp;&nbsp;&nbsp;  START  &nbsp;&nbsp;&nbsp;</button>
+      </div>
+    </div>
+
+    <div *ngIf="showStart">
+      <div class="row justify-content-center align-items-center">
+        <div class="col col-lg-1 spacer"></div>
+        <div class="col col-lg-auto">
+          <div class="intro-content">
+            <div class="foot"
+              [class.showFoot]="showFoot"
+              [ngClass]="showFoot ? 'showFoot' : 'hideFoot'"
+              [style.backgroundImage]="'url('+ imgPath +')'"
+            ></div>
+
+            <div 
+              class="text1"
+              [ngClass]="showText ? 'showText' : 'hideText'"
+              >Kick Ass</div>
+            <div 
+              class="text2"
+              [ngClass]="showText2 ? 'showText2' : 'hideText2'"
+              >-A-tone</div>
+            <div 
+              class="text3"
+              [ngClass]="showText3 ? 'showText3' : 'hideText3'"
+              >RECORDS</div>
+            <div 
+              class="text4"
+              [ngClass]="showText4 ? 'showText4' : 'hideText4'"
+              >PRESENTS</div>
+            <div 
+              class="text4"
+              [ngClass]="showText4 ? 'showText4' : 'hideText4'"
+              >A SHADY DEAL PRODUCTION</div>
+
+          </div>
+        </div>
+        <div class="col col-lg-1 spacer"></div>
+      </div>
+
+      <div class="row controls justify-content-center"
+        *ngIf="showControls"
+      >
+        <div class="col col-lg-auto">
+          <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
