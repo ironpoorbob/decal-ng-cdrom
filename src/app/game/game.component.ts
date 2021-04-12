@@ -73,6 +73,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   public vanImgPath: string = '';
   public vanGlowImgPath: string = '';
   public vanCrashImgPath: string = '';
+  public checkboxImgPath: string = '';
 
   public audio: any;
   public videoUrl: string = '';
@@ -108,13 +109,11 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     )
 
-    // this.handleUnderline();
-
-
     this.boardImgPath = this.dataObj.baseUrl + 'assets/images/game_board.jpg';
     this.vanImgPath = this.dataObj.baseUrl + 'assets/images/the-van.png';
     this.vanGlowImgPath = this.dataObj.baseUrl + 'assets/images/the-van-glow.png';
     this.vanCrashImgPath = this.dataObj.baseUrl + 'assets/images/the-van-crash.png';
+    this.checkboxImgPath = this.dataObj.baseUrl + 'assets/images/checkbox.png';
   }
 
   public ngAfterViewInit():void {
@@ -402,7 +401,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         // break;
     }
 
-    return 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=0&enablejsapi=1';
+    return 'https://www.youtube-nocookie.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=0&enablejsapi=1';
   }
 
   /////////////////////////////////
