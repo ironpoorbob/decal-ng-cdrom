@@ -35,4 +35,8 @@ export class OutroComponent implements OnInit, OnDestroy {
     this.dataObjSubscription.unsubscribe();
   }
 
+  public getVideoUrl() {
+    return 'https://www.youtube-nocookie.com/embed/fj-buH5fhAw?autoplay=1&rel=0&controls=0&enablejsapi=1';
+  }
+
 }

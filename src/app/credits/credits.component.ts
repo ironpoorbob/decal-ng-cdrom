@@ -12,6 +12,8 @@ export class CreditsComponent implements OnInit, OnDestroy {
 
   public loopAudio: any;
 
+  public imgPath: string = '';
+
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
@@ -28,6 +30,9 @@ export class CreditsComponent implements OnInit, OnDestroy {
         // console.log('object state in button: ', value);
       }
     )
+
+    this.imgPath = this.dataObj.baseUrl + 'assets/images/full-band-3.jpg';
+    
   }
 
   public ngOnDestroy(): void {

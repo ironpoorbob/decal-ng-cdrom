@@ -51,7 +51,10 @@
                 ><p class="subheadline" [innerHTML]="gamedata[gameInd].questionSubheadline"></p></div>
               </div>
               <div class="row question" *ngFor="let questionData of gamedata[gameInd].questions; let idx = index;">
-                <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx, gamedata[gameInd].answers[idx])"><label for="{{'cbG0' + idx}}" class="css-label cb0"></label></div>
+                <div class="col col-lg-1"><input type="checkbox" name="{{'cbG0' + idx}}" id="{{'cbG0' + idx}}" class="css-checkbox" (change)="onCheckBoxChange($event, idx, gamedata[gameInd].answers[idx])"><label for="{{'cbG0' + idx}}" class="css-label cb0"
+                  [style.backgroundImage]="'url('+ checkboxImgPath +')'"
+                  
+                  ></label></div>
                 <div class="col col-lg-11"><p [innerHTML]="questionData.question" class="questionItem"></p></div>
               </div>
               </form> 
@@ -80,23 +83,6 @@
       </div>
       <div class="col offset-lg-3 col-lg-2 offset-xl-2" *ngIf="startScreen">
         <button class="back-button inverse continue" (click)="handleIntroContinueClick()">CONTINUE</button>
-      </div>
-    </div>
-    <div class="row controls testing">
-      <div class="col offset-lg-2 col-lg-2">
-        <button class="prev-button small" (click)="handleIndexJumpClick(7)">JUMP</button>
-      </div>
-      <div class="col col-lg-2">
-        <button class="prev-button small" (click)="handleAnimationStartClick()">START</button>
-      </div>
-      <div class="col col-lg-2">
-        <button class="prev-button small" (click)="handleFlipClick()">FLIP</button>
-      </div>
-      <div class="col col-lg-2">
-        <button class="prev-button small" (click)="handlePrevClick()">PREV</button>
-      </div>
-      <div class="col col-lg-2">
-        <button class="next-button small" (click)="handleNextClick()">NEXT</button>
       </div>
     </div>
     

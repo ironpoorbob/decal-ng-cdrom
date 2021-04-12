@@ -1,0 +1,67 @@
+
+.intro {
+
+  .intro-content {
+    position: relative;
+    // padding-top: 40px;
+    .foot {
+      position: relative;
+      height: 200px;
+      width: 500px;
+      // width: 100px;
+      // height: 300px;
+      position: relative;
+      // top: 20px;
+      // left: 60px;
+      // opacity: 0;
+      // display: block;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-size: 100% 100%;
+      // transform: rotate(90deg);
+    }
+  
+    .text1 {
+      position: absolute;
+      top: 46px;
+      left: 40px;
+      text-align: center;
+      color: #000;
+      font-size: 68px;
+      letter-spacing: -3.5px;
+    }
+    .text2, .text3 {
+      text-align: right;
+      padding-right: 30px;
+    }
+    .text2 {
+      font-size: 48px;
+      letter-spacing: -3.5px;
+    }
+    .text3 {
+      position: relative;
+      top: -20px;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .text4 {
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: -3.5px;
+    }
+
+    .showFoot, .showText, .showText2, .showText3, .showText4 {
+      opacity: 1;
+    }
+    .hideFoot, .hideText, .hideText2, .hideText3, .hideText4 {
+      opacity: 0;
+    }
+
+  }
+
+
+  .spacer {
+    min-height: 600px;
+  }
+}

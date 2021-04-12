@@ -43,6 +43,8 @@ export class AskComponent implements OnInit, OnDestroy, AfterViewInit {
   public isOpen2: boolean = false;
   public isOpen3: boolean = false;
 
+  public isAudioStarted: boolean = false;
+
   public hideLinks: boolean = false;
 
   public kickShow: boolean = false;
@@ -124,6 +126,25 @@ export class AskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showVideoPlayer = false;
     this.toggleVideoPlayer = false;
     this.stateManagerService.startLoop("ask");
+    // this.loopStartWait();
+  }
+
+  public loopStartWait() {
+    console.log('LOOP: 1 playing? :::: ', this.isAudioStarted);
+    if (!this.isAudioStarted) { // if false (not playing) - start wait, then play
+      new Promise((res) => {
+        setTimeout(() => {
+          console.log('done wait');
+          console.log('LOOP: 2 playing? :::: ', this.isAudioStarted);
+          // this.isAudioStarted = true;
+          if (this.isAudioStarted) {
+            console.log('LOOP: 3 playing? :::: ', this.isAudioStarted);
+            this.stateManagerService.startLoop("ask");
+            this.isAudioStarted = true;
+          }
+        }, 3000);
+      })
+    }
   }
 
   // play video on text button click
@@ -131,6 +152,8 @@ export class AskComponent implements OnInit, OnDestroy, AfterViewInit {
     this.stateManagerService.stopLoop();
     this.showVideoPlayer = true;
     this.toggleVideoPlayer = true;
+
+    this.isAudioStarted = false;
 
     let videoVal = '';
     switch(val) {
@@ -172,7 +195,7 @@ export class AskComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
     }
 
-    this.videoUrl = 'https://www.youtube.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=2&enablejsapi=1';
+    this.videoUrl = 'https://www.youtube-nocookie.com/embed/' + videoVal + '?autoplay=1&rel=0&controls=2&enablejsapi=1';
   }
 
   public backgroundImagePath(imageName) {

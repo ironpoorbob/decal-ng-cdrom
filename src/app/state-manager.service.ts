@@ -83,15 +83,17 @@ export class StateManagerService {
         break;
     }
 
+    // console.log('this audio: ', this.audio);
+
     new Promise((res) => {
       setTimeout(() => {
-        // this.audio.play(); // TODO: uncomment to get loops
+        this.audio.play(); // TODO: uncomment to get loops
       }, waitTime);
     })
 
     this.audio.addEventListener('ended', function() {
       this.currentTime = 0;
-      // this.play(); // TODO: uncomment to get loops
+      this.play(); // TODO: uncomment to get loops
     }, false);
   }
 

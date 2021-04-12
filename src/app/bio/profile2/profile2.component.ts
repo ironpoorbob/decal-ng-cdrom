@@ -36,6 +36,8 @@ export class Profile2Component implements OnInit {
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
+  public imgPath: string = '';
+
   public isOpen: boolean = true;
 
   public audio: any;
@@ -52,6 +54,8 @@ export class Profile2Component implements OnInit {
         this.dataObj = value;
       }
     )
+
+    this.imgPath = this.dataObj.baseUrl + 'assets/images/bob-face.jpg';
 
     this.handleLoadSFX();
 

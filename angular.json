@@ -42,7 +42,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "baseHref": "/test/decal-ng-cdrom/",
+              "baseHref": "/Decal/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
