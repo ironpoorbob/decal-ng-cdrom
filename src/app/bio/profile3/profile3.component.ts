@@ -50,6 +50,8 @@ export class Profile3Component implements OnInit {
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
+  public imgPath: string = '';
+
   public isOpen: boolean = false;
   public isOpen2: boolean = false;
 
@@ -68,6 +70,8 @@ export class Profile3Component implements OnInit {
         this.dataObj = value;
       }
     )
+
+    this.imgPath = this.dataObj.baseUrl + 'assets/images/steve-face.jpg';
 
     this.handleLoadSFX();
 

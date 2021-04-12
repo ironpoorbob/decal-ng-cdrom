@@ -36,6 +36,8 @@ export class Profile1Component implements OnInit {
   public dataObjSubscription: Subscription;
   public dataObj: any; // data received
 
+  public imgPath: string = '';
+
   public isOpen: boolean = true;
 
   public audio: any;
@@ -53,6 +55,8 @@ export class Profile1Component implements OnInit {
         // console.log('object state in button: ', value);
       }
     )
+
+    this.imgPath = this.dataObj.baseUrl + 'assets/images/stark-face.jpg';
     
     this.handleLoadSFX();
 
