@@ -1,11 +1,24 @@
 <div class="container">
-    <div class="outro">
-  
-      <div class="row controls">
-        <div class="col offset-lg-1 col-lg-3">
-          <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
-        </div>
+  <div class="outro">
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-auto">
+        <iframe width="640" height="390"
+          [src]="getVideoUrl() | urlSanitize" 
+          frameborder="0" allow="autoplay;  encrypted-media;" allowfullscreen></iframe>
       </div>
-      
     </div>
+    <div class="row justify-content-center">
+      <div class="col col-lg-auto centerAlign">
+        <p class="caption">Thanks a bunch!</p>
+      </div>
+    </div>
+  
+    <div class="row controls">
+      <div class="col offset-lg-1 col-lg-3">
+        <button class="back-button" (click)="handleMenuClick()">MAIN MENU</button>
+      </div>
+    </div>
+      
   </div>
+</div>
