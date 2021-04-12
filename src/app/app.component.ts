@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (environment.production) {
       console.log('environment prod: ', environment);
-      this.stateManagerService.setValue('baseUrl', '/test/decal-ng-cdrom/');
+      this.stateManagerService.setValue('baseUrl', '/Decal/');
       // set prod base path global variable
     } else {
       // set non prod base path global variable
