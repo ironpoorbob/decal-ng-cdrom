@@ -58,7 +58,7 @@
       transform: rotate(-2deg);
     }
     .strings {
-      padding-top: 30px;
+      padding-top: 20px;
       font-size: 36px;
       perspective: 227px;
       button {
@@ -67,13 +67,15 @@
     }
 
     .rear {
-      font-size: 24px;
+      font-size: 30px;
+      // transform: rotate(7deg) skew(19deg, -3deg);
+      transform: perspective(300px) scaleZ(1.5) rotateX(25deg) rotateY(-8deg);
     }
 
     .weird {
       z-index: 1000;
       font-size: 24px;
-      padding-top: 20px;
+      padding-top: 25px;
       position: relative;
       -webkit-perspective: 260px;
       perspective: 260px;
@@ -84,13 +86,13 @@
 
     .show {
       z-index: 999;
-      padding-top: 30px;
+      padding-top: 36px;
       font-size: 22px;
       transform: rotate(352deg) skew(8deg, 0deg);
     }
     
     .time {
-      padding-top: 40px;
+      padding-top: 30px;
       font-size: 26px;
       transform: rotate(7deg) skew(19deg, -3deg);
     }

@@ -271,7 +271,7 @@ export const gamedata = [
   {
     id: '10',
     headline: "You’ve made it to the club. ",
-    questionSubheadline: "You’ve arrived at the big club in town for the centerpiece show of your tour. The show isn’t cancelled. You didn’t get lost. The band didn’t break up in the van. Sound check goes great. You’ve got a $400 guarantee. The local college radio is broadcasting the show live. Major label suit-wearing guys are trying to talk to the cool indie A&R guys who are there to see your band. You play the best show of your life. People help you carry your equipment and don’t steal anything. That model-type asks if you need a place to stay...",
+    questionSubheadline: "You’ve arrived at the big club in town for the centerpiece show of your tour. The show isn’t cancelled. You didn’t get lost. The band didn’t break up in the van. Sound check goes great. You’ve got a $400 guarantee. The local college radio station is broadcasting the show live. Major label suit-wearing guys are trying to talk to the cool indie A&R guys who are there to see your band. You play the best show of your life. People help you carry your equipment and don’t steal anything. That model-type asks if you need a place to stay...",
     wide: false,
     questions: [],
     answers: [
