@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { Subscription, ReplaySubject } from 'rxjs';
 
 import { IntroComponent } from '../app/intro/intro.component';
 import { HomeComponent } from '../app/home/home.component';
@@ -27,7 +26,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'game', component: GameComponent },
   { path: 'ask', component: AskComponent },
-  // { path: 'bio', component: BioComponent },
   { path: 'bio', redirectTo: '/bio/bio1', pathMatch: 'full' },
   { path: 'bio', component: BioComponent,
     children: [
@@ -53,16 +51,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-  public dataObjSubscription: Subscription;
-  public dataObj: any; // data received
 
-  constructor(private stateManagerService: StateManagerService) {
-    this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
-      value => {
-        this.dataObj = value;
-        // console.log('object state in button: ', value);
-      }
-    )
-
-  }
+  constructor() {}
 }
