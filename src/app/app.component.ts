@@ -1,7 +1,6 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { StateManagerService } from './state-manager.service';
-import { Subscription, ReplaySubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { environment } from '../environments/environment';
 
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private stateManagerService: StateManagerService,
-    // @Inject(APP_BASE_HREF) public baseHref: string
   ) {}
 
   ngOnInit(): void {
@@ -28,18 +26,9 @@ export class AppComponent implements OnInit {
       // set prod base path global variable
     } else {
       // set non prod base path global variable
-      console.log('environment prod: ', environment);
+      console.log('environment non prod: ', environment);
       this.stateManagerService.setValue('baseUrl', '/');
     }
-    // this.dataObjSubscription = this.stateManagerService.$dataObj.subscribe(
-    //   value => {
-    //     this.dataObj = value;
-    //     // console.log('object state MAIN APP:::::: ', value);
-    //   }
-    // )
-    // this.resetFistZindex();
-    // console.log('whats base href ::: ', this.baseHref);
-
   }
 
   // pause/stop music if browser resized below 992px wide
@@ -51,9 +40,5 @@ export class AppComponent implements OnInit {
       this.stateManagerService.stopLoop();
     }
   }
-
-  // public resetFistZindex(): void {
-
-  // }
 
 }

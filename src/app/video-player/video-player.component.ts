@@ -129,6 +129,7 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges, O
     //   videoUrl: ""
     // }
     // this.stateManagerService.setValue('videoObj', videoObj);
+    this.dataObjSubscription.unsubscribe();
     console.log('video player destroy');
   }
 
