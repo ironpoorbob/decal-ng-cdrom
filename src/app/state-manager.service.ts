@@ -28,68 +28,72 @@ export class StateManagerService {
 
   constructor() { }
 
+  /**
+   * get/broadcast data object when updated
+   */
   public getDataObj() {
-    // console.log('the object ================ ', this.dataObj);
     this.dataObjSource.next(this.dataObj);
   }
 
-  public setValue(key, value) {
-    // console.log('set value : key : ', key, ' : value : ', value);
+  /**
+   * set data object by key 
+   * @param key string
+   * @param value boolean/string/object
+   */
+  public setValue(key: string, value: any) {
     this.dataObj[key] = value;
-    // console.log('set data: ', this.dataObj);
-    // console.log('the count : ', this.dataObj.count);
     this.getDataObj();
   }
 
 
-
-  // start and stop audio loops
-  // current loop name var
-
-  public startLoop(loop): void {
+  /**
+   * start and stop audio loops
+   * @param loop name of section/loop
+   */
+  public startLoop(loop: string): void {
     let waitTime = undefined;
 
-    this.dataObj['loop'] = loop;
-    switch(loop) {
-      case 'home':
-        this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
-        waitTime = 0;
-        break;
-      case 'credits':
-        this.audio = new Audio("assets/audio/loops-updated/cocktails1-loop-mono.mp3");
-        waitTime = 500;
-        break;
-      case 'ask':
-        this.audio = new Audio("assets/audio/loops-updated/cocktails3-loop-mono.mp3");
-        waitTime = 800;
-        break;
-      case 'game':
-        this.audio = new Audio("assets/audio/figure1.mono.22.mp3");
-        waitTime = 800;
-        break;
-      case 'bio1':
-        this.audio = new Audio("assets/audio/grind1.mono.mp3");
-        waitTime = 800;
-        break;
-      case 'bio2':
-        this.audio = new Audio("assets/audio/loops-updated/grind2-loop-mono.mp3");
-        break;
-      case 'bio3':
-        this.audio = new Audio("assets/audio/grind3.mono.mp3");
-        break;
-      default:
-        this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
-        waitTime = 800;
-        break;
+    if (this.dataObj.loop !== loop) { // if loop not already set or running
+      this.dataObj['loop'] = loop;
+      switch(loop) {
+        case 'home':
+          this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
+          waitTime = 0;
+          break;
+        case 'credits':
+          this.audio = new Audio("assets/audio/loops-updated/cocktails1-loop-mono.mp3");
+          waitTime = 500;
+          break;
+        case 'ask':
+          this.audio = new Audio("assets/audio/loops-updated/cocktails3-loop-mono.mp3");
+          waitTime = 800;
+          break;
+        case 'game':
+          this.audio = new Audio("assets/audio/figure1.mono.22.mp3");
+          waitTime = 800;
+          break;
+        case 'bio1':
+          this.audio = new Audio("assets/audio/grind1.mono.mp3");
+          waitTime = 800;
+          break;
+        case 'bio2':
+          this.audio = new Audio("assets/audio/loops-updated/grind2-loop-mono.mp3");
+          break;
+        case 'bio3':
+          this.audio = new Audio("assets/audio/grind3.mono.mp3");
+          break;
+        default:
+          this.audio = new Audio("assets/audio/loops-updated/crabs.mono.22.mp3");
+          waitTime = 800;
+          break;
+      }
+
+      new Promise((res) => {
+        setTimeout(() => {
+          this.audio.play(); // TODO: uncomment to get loops
+        }, waitTime);
+      })
     }
-
-    // console.log('this audio: ', this.audio);
-
-    new Promise((res) => {
-      setTimeout(() => {
-        this.audio.play(); // TODO: uncomment to get loops
-      }, waitTime);
-    })
 
     this.audio.addEventListener('ended', function() {
       this.currentTime = 0;
@@ -97,10 +101,13 @@ export class StateManagerService {
     }, false);
   }
 
+  /**
+   * stop loops and set loop value to empty string
+   */
   public stopLoop(): void {
-    // console.log('stop audio ::: ', this.audio)
     if (this.audio) {
       this.audio.pause();
+      this.dataObj['loop'] = '';
     }
   }
 
